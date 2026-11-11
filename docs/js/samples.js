@@ -5,8 +5,8 @@
 OzdenUI Website - Samples - v26.11 (2026-11-04)
 
 The Python code of the page (shown, not run) and the pictures of the real windows.
-NOTE: SAMPLES.counter is examples/counter.py (its picture is images/counter.png), SAMPLES.others is the code of
-tools/shot_gauge.py (images/gauge.png) and SAMPLES.own the code of tools/shot_card.py and of the README (images/card.png):
+NOTE: SAMPLES.counter is examples/counter.py (its picture is images/counter.webp), SAMPLES.others is the code of
+tools/shot_gauge.py (images/gauge.webp) and SAMPLES.own the code of tools/shot_card.py and of the README (images/card.webp):
 change them together. The pictures are made by tools/make_images.py from the
 real windows; it writes their sizes into js/image-sizes.js.
 

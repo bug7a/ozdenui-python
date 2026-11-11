@@ -5,7 +5,7 @@
 OzdenUI Website - Your own component - v26.11 (2026-11-04)
 
 A component of your own in plain Python: the code of a Card class next to its window (after a click on its button)
-and three points. The code is the README's and tools/shot_card.py's (images/card.png).
+and three points. The code is the README's and tools/shot_card.py's (images/card.webp).
 
 Started Date: November 2026
 Webpage: https://bug7a.github.io/ozdenui-python/

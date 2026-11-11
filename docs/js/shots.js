@@ -25,6 +25,7 @@ SPDX-License-Identifier: Apache-2.0
 const SHOTS = {};
 
 SHOTS.SHADOW = "0px 24px 60px rgba(0, 0, 0, 0.28), 0px 0px 0px 1px rgba(0, 0, 0, 0.06)";
+SHOTS.EXTENSION = ".webp"; // lossless, written by tools/make_images.py
 
 // The height of a picture at a width (its own ratio)
 SHOTS.heightAt = function (name, width) {
@@ -36,7 +37,10 @@ SHOTS.heightAt = function (name, width) {
 SHOTS.picture = function (name, alt, width, height = 0) {
 
     Icon({ width: width, height: height || SHOTS.heightAt(name, width), color: "transparent" });
-    that.load(CONFIG.imagesPath + name + ".png");
+    // WHY lazy (before the address): the page loaded all its pictures at once, and on a slow network even the first
+    //     one waited; a picture far below comes when the reader comes near it
+    that.elem.loading = "lazy";
+    that.load(CONFIG.imagesPath + name + SHOTS.EXTENSION);
     that.alt = alt;
     that.imageFit = "contain";
     that.elem.style.flexShrink = "0";
