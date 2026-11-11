@@ -413,6 +413,8 @@ python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/
 .venv/bin/python checks/run_all.py        # every example in its real window, played as a user would; a problem names
                                           # its line of the play (a page error: the step it came after)
 .venv/bin/python checks/check_handbook.py pictures   # every program of the handbook in its window; pictures/sheet.png
+.venv/bin/python checks/ci_report.py      # the last runs of the CI (needs gh): what failed in which job (in one job only:
+                                          # a slow machine), the times of the window checks on each system
 .venv/bin/python checks/look.py gallery chat.png 1.5 1000 860 --run "scroll_to(first(ChatView))" --clip "first(ChatView)"
                                           # a picture of an example: --run code before it (first(), scroll_to(), click(),
                                           # js()), --clip only the part of these objects
