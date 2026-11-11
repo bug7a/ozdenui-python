@@ -205,7 +205,7 @@ const TEXTS = {
         ],
         startHandbook: "Then the handbook: ten short chapters, from the first window to a component of your own, in English and Turkish. Every program in it runs.",
         readHandbook: "Read the handbook", // the hero and the end of Start: a verb, as the other buttons
-        startNote: "Python {python}+. Tested on macOS; Windows (WebView2) and Linux (GTK or Qt) are not tested yet.",
+        startNote: "Python {python}+. Tested on macOS and Windows (WebView2); Linux (GTK or Qt) is not tested yet.",
 
         // FOOTER
         footerText: "OzdenUI is open source under the {license} license.",
@@ -398,7 +398,7 @@ const TEXTS = {
         ],
         startHandbook: "Sonra el kitabı: ilk pencereden kendi bileşeninize on kısa bölüm, İngilizce ve Türkçe. İçindeki her program çalışır.",
         readHandbook: "El kitabını okuyun",
-        startNote: "Python {python}+. macOS'ta denendi; Windows (WebView2) ve Linux (GTK ya da Qt) henüz denenmedi.",
+        startNote: "Python {python}+. macOS'ta ve Windows'ta (WebView2) denendi; Linux (GTK ya da Qt) henüz denenmedi.",
 
         // FOOTER
         footerText: "OzdenUI, {license} lisansı ile açık kaynaktır.",

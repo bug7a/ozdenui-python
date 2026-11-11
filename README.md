@@ -392,7 +392,8 @@ in one color: `App(style="minimal", accent="#2A78D6")`).
 
 ## Limits of v0.1
 
-- Tested only on macOS. Windows and Linux are not tested yet.
+- Tested on macOS and Windows (the tests of this repository run every example in its real window, Python 3.9 to
+  3.15). Linux is not tested yet.
 - A callback that must answer at once can not be a Python function, because the answer comes later: the
   `on_before_click` of a SmartButton, an `on_close` of Tabs that returns `False`, the `validate` of a TagInput, and functions
   that build objects inside a component (`createItemView` of a list, `createCellView`). Format the values of a SmartTable in Python;
