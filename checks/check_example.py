@@ -610,15 +610,21 @@ def play_the_theme_switch(p):
     window) and the button itself."""
     other = "light" if p.app.theme == "dark" else "dark"
     old_page = p.app.page
-    p.click(p.example.THEME_BUTTON_TEXTS[p.app.theme])
-    # WHY from Python: a question to the page while it is loaded again waits for the new page (pywebview), and on
-    #      Windows its answer never came. The app makes a new page object when the new page is ready.
-    deadline = time.time() + WAIT_SECONDS
-    while time.time() < deadline and p.app.page is old_page:
-        time.sleep(STEP_SECONDS / 2)
+    readies = []
+    tell_ready = p.app._on_page_ready
+    p.app._on_page_ready = lambda *values: (readies.append(values), tell_ready(*values))  # WHY: a failure tells more
+    try:
+        p.click(p.example.THEME_BUTTON_TEXTS[p.app.theme])
+        # WHY from Python: a question to the page while it is loaded again waits for the new page (pywebview), and on
+        #      Windows its answer never came. The app makes a new page object when the new page is ready.
+        deadline = time.time() + WAIT_SECONDS
+        while time.time() < deadline and p.app.page is old_page:
+            time.sleep(STEP_SECONDS / 2)
+    finally:
+        del p.app._on_page_ready
     if p.app.page is old_page:
         p.problem(f"the page was not made again (loading: {p.app._is_loading_for_theme}, "
-                  f"loaded: {p.app._window.events.loaded.is_set()})")
+                  f"loaded: {p.app._window.events.loaded.is_set()}, ready: {len(readies)}, page: {page_state(p)})")
         return
     p.on_app(lambda: None)  # WHY: it runs after start() and its drawing on the new page
     p.js(HELPERS_JS)  # WHY again: they were on the old page
@@ -631,6 +637,26 @@ def play_the_theme_switch(p):
     expected_list = looks[other]["list"] if looks else window_look
     fruit_list = p.on_app(lambda: p.first(ItemList)._values.get("styleName"))
     p.expect(fruit_list == expected_list, f"the fruit list on the new page: {fruit_list} ({expected_list} expected)")
+
+
+PAGE_STATE_JS = ("JSON.stringify({ address: location.href, bridge: !!window.__bp, basic: !!(window.basic && basic.isReady), "
+                 "api: !!(window.pywebview && window.pywebview.api && window.pywebview.api.ready), name: window.name })")
+
+
+def page_state(p):
+    """What the page is now. WHY from this thread: the app thread may be the one that waits."""
+    box = {}
+
+    def read():
+        try:
+            box["state"] = p.app._window.evaluate_js(PAGE_STATE_JS)
+        except Exception as error:
+            box["state"] = f"no answer: {error}"
+
+    thread = threading.Thread(target=read, daemon=True)
+    thread.start()
+    thread.join(ANSWER_SECONDS)
+    return box.get("state", "no answer in time")
 
 
 def play_the_list_ground(p):

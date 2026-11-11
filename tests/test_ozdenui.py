@@ -462,6 +462,11 @@ def test_the_theme_of_a_window_is_a_known_one():
         App(lambda page: None, theme="blue")
 
 
+def reloads(app):
+    """The scripts that made the page load itself again (set_theme)."""
+    return [script for script in app._window.scripts if "location.reload()" in script]
+
+
 def test_set_theme_draws_the_page_again_in_the_other_theme(app, capsys):
     # WHY a new page: a component takes its look when it is made; start() makes it again in the new theme
     themes = []
@@ -476,8 +481,9 @@ def test_set_theme_draws_the_page_again_in_the_other_theme(app, capsys):
     app.set_theme("dark")
     assert app.theme == "light"  # after the task that runs now
     run_queued_tasks(app)
-    assert app.theme == "dark" and app._window.loaded == [app_module._page_address(1)]
-    assert 'window.name = "ozdenui-page-color:#1C1C1B"' in app._window.scripts
+    # WHY the page loads itself: on Windows load_url() of the page it shows did nothing, and the app waited for ever
+    assert app.theme == "dark" and app._window.loaded == [] and len(reloads(app)) == 1
+    assert reloads(app)[0].startswith('window.name = "ozdenui-page-color:#1C1C1B"; setTimeout(')
     assert not app._timers  # WHY: a tick sent its commands to the page that was being loaded
     scripts = len(app._window.scripts)
     Label(text="for the old page")
@@ -493,9 +499,7 @@ def test_set_theme_draws_the_page_again_in_the_other_theme(app, capsys):
     stop_tick()
     app.set_theme("light")
     run_queued_tasks(app)
-    # WHY an address of its own: WebView2 (Windows) does not load the address it shows, and the app waited for ever
-    assert app._window.loaded == [app_module._page_address(1), app_module._page_address(2)]
-    assert app._window.loaded[1].endswith("/index.html?load=2")
+    assert len(reloads(app)) == 2 and reloads(app)[1].startswith('window.name = "ozdenui-page-color:"; ')
 
 
 def test_set_theme_auto_follows_the_system_and_the_same_theme_changes_nothing(app):
@@ -503,10 +507,10 @@ def test_set_theme_auto_follows_the_system_and_the_same_theme_changes_nothing(ap
     assert app.theme == "light"
     app.set_theme("light")
     run_queued_tasks(app)
-    assert app._window.loaded == []
+    assert reloads(app) == []
     app.set_theme("auto")
     run_queued_tasks(app)
-    assert app.theme == "dark" and len(app._window.loaded) == 1
+    assert app.theme == "dark" and len(reloads(app)) == 1
     with pytest.raises(ValueError, match="light"):
         app.set_theme("blue")
 
@@ -1878,7 +1882,7 @@ def test_a_page_that_comes_late_still_starts_the_program(monkeypatch, capsys):
     thread.start()
     time.sleep(0.2)
     assert not started.is_set() and shown, "the window is shown while the page is late"
-    assert loaded == [app_module._page_address(1)], "the page is loaded once more"
+    assert loaded == [app_module._page_address()], "the page is loaded once more"
     assert "not ready yet" in capsys.readouterr().err
     late_app._on_page_ready("v1", 100, 100)
     assert started.wait(2), "the program starts when the page comes"
