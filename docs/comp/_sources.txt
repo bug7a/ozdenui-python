@@ -1,0 +1,5 @@
+# Made by _make-standalone.sh (repository root). Do not edit: run the script again.
+# <file in comp/> <- <its source in the repository>
+components.min.js <- comp/search-results.js
+components.min.js <- comp/toast.js
+components.min.js <- comp/page-control.js

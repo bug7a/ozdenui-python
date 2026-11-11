@@ -1,0 +1,2 @@
+Made by _make-standalone.sh (repository root) from __projects/basicjs-everywhere/webpage-python.
+Do not edit the files here: change the project, then run the script again (this folder is made again from scratch).

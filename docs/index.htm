@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>OzdenUI – Modern desktop windows, in plain Python</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OzdenUI opens a small, modern window of its own from Python: boxes, texts, buttons and the ready components of basic.js. Only Python: no JavaScript, no HTML, no browser tab, no server.">
+    <meta name="keywords" content="ozdenui, OzdenUI, basic.js, Python GUI, desktop window, pywebview, Python UI library, no HTML, no CSS">
+    <meta name="author" content="Buğra Özden">
+    <meta name="theme-color" content="#0D1311">
+
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- LANGUAGES: The same page in English (https://bug7a.github.io/ozdenui-python/) and in Turkish (?lang=tr).
+         canonical is added by js/site.js: it is different for each language. -->
+    <link rel="alternate" hreflang="en" href="https://bug7a.github.io/ozdenui-python/">
+    <link rel="alternate" hreflang="tr" href="https://bug7a.github.io/ozdenui-python/?lang=tr">
+    <link rel="alternate" hreflang="x-default" href="https://bug7a.github.io/ozdenui-python/">
+
+    <!-- SEO: The page has two languages at the same address: ?lang=tr / ?lang=en (js/site.js, the default one has no ?lang).
+         The published address is CONFIG.siteURL (js/config.js): js/site.js adds canonical, hreflang and og:url with it.
+         It is "" here; _make-repo.sh of the package writes it into the copy it publishes (docs/).
+         The address is also written below (hreflang, og:url, og:image): link previews do not run JavaScript.
+         The <noscript> part and the JSON-LD are made from js/texts.js: keep them the same when the texts change. -->
+
+    <!-- SOCIAL (link preview) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OzdenUI">
+    <meta property="og:title" content="OzdenUI – Modern desktop windows, in plain Python">
+    <meta property="og:description" content="OzdenUI opens a small, modern window of its own from Python: boxes, texts, buttons and the ready components of basic.js. Only Python: no JavaScript, no HTML, no browser tab, no server.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="tr_TR">
+    <meta property="og:url" content="https://bug7a.github.io/ozdenui-python/">
+    <meta property="og:image" content="https://bug7a.github.io/ozdenui-python/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="OzdenUI – Modern desktop windows, in plain Python">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- STRUCTURED DATA (schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "OzdenUI",
+        "description": "OzdenUI opens a small, modern window of its own from Python: boxes, texts, buttons and the ready components of basic.js. Only Python: no JavaScript, no HTML, no browser tab, no server.",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "isAccessibleForFree": true,
+        "inLanguage": [
+            "en",
+            "tr"
+        ],
+        "keywords": "Python GUI, desktop window, basic.js, pywebview",
+        "author": {
+            "@type": "Person",
+            "name": "Buğra Özden",
+            "url": "https://bug7a.github.io/",
+            "sameAs": [
+                "https://github.com/bug7a/",
+                "https://www.linkedin.com/in/bugra-ozden/"
+            ]
+        }
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"><!-- The juniper of the logo of OzdenUI FOR PYTHON -->
+
+    <!-- LIBRARY FILES (the basic folder of the repository; _make-standalone.sh makes a copy that works alone) -->
+    <link rel="preload" href="basic/font/open-sans/OpenSans-Regular.ttf" as="font" crossorigin="anonymous">
+    <link rel="preload" href="basic/font/open-sans/OpenSans-Bold.ttf" as="font" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="basic/basic.min.css">
+    <script src="basic/basic.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="basic/scroll-bar.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- COMPONENT FILES -->
+    <script src="comp/components.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- SITE FILES -->
+    <script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/texts.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/samples.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/image-sizes.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/theme.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/code-highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/shots.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/header.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- SECTION FILES -->
+    <script src="js/sections/hero.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/code.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/why.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/components.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/own.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/dialogs.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/examples.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/fit.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/start.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sections/footer.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="js/site.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--
+
+    /* Bismillah */
+
+    BASICJS FOR PYTHON WEBSITE (2026-11-04)
+    - The page of the Python package OzdenUI (basicjs-python): the sister of 03-webpages/webpage-basicjs.
+    - The whole page is drawn with basic.js. The Python code is shown, not run; the pictures are real windows
+      (tools/make_images.py makes them from the examples).
+    - Texts: js/texts.js  |  Code: js/samples.js  |  Settings: js/config.js  |  Colors: js/theme.js
+    - The flow of the page: js/site.js -> SiteApp.build()
+
+    Started Date: November 2026
+    Webpage: https://bug7a.github.io/ozdenui-python/
+
+    Copyright 2020-2026 Bugra Ozden <bugra.ozden@gmail.com> (https://bug7a.github.io/)
+    Licensed under the Apache License, Version 2.0
+    SPDX-License-Identifier: Apache-2.0
+
+    -->
+
+    <style>
+
+        /* The text shown when JavaScript is off */
+        .noscript-box {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            overflow: auto; /* WHY: basic.css turns off the scrolling of <body>. */
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            font-family: opensans;
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.82);
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <noscript>
+        <div class="noscript-box">
+            <div style="max-width: 760px; margin: 0 auto; text-align: left;">
+                <p><a href="?lang=tr" hreflang="tr" lang="tr" style="color: inherit;">Türkçe</a></p>
+                <h1>Modern desktop windows, in&nbsp;plain Python</h1>
+                <p>Write the window in Python: boxes, texts, buttons and ready components appear in a small window of its own. Only Python: no JavaScript, no HTML, no browser tab, no server.</p>
+                <p>v0.1.0 · experimental · Python 3.9+ · 53 components with a Python class · all 88 of basic.js by name · 12 MB with its window · Apache 2.0</p>
+                <p><a href="handbook/" style="color: inherit;">The handbook</a>: ten short chapters, from the first window to a component of your own, in English and Turkish.</p>
+                <h2>A counter in a few lines</h2>
+                <p>Groups place the objects for you, and a function given to a button runs in Python when it is clicked.</p>
+                <ul>
+                    <li><b>with blocks.</b> The objects of a with block go into its group: the shape of the code is the shape of the window.</li>
+                    <li><b>Values in Python.</b> count.text is read in Python, with no question to the window. Setting it changes the window.</li>
+                    <li><b>One call for a function.</b> All the changes of a click go to the window together, so a click costs about 3 ms.</li>
+                </ul>
+                <h2>Small, fast enough, easy to read</h2>
+                <ul>
+                    <li><b>Small and offline.</b> The package carries basic.js and its components. With its window it is about 12 MB; no internet, no server, no browser tab.</li>
+                    <li><b>Fast enough to forget.</b> A click reaches your Python function and comes back on the screen in about 3 ms. The window shows in about 0.5 s.</li>
+                    <li><b>Code that reads like the window.</b> with blocks for groups, the names of basic.js, values read back without asking the window. An error points to your line.</li>
+                    <li><b>Components ready.</b> 53 components have a Python class: buttons, fields, lists, a table, a chart, dialogs. All 88 of basic.js work with Component().</li>
+                </ul>
+                <h2>Ready components, Python classes</h2>
+                <p>SmartButton, TextField, EmailField, PasswordField, NumberField, UrlField, PhoneField, CurrencyField, TextAreaField, TagInput, SearchInput, CheckBox, Toggle, RadioButton, SelectBox, Slider, RangeSlider, SliderField, Stepper, DatePicker, TimePicker, ColorPicker, FilePicker, ProgressBar, StepBar, LoadingScreen, Canvas, ItemList, SortableList, SmartTable, DataTable, TreeView, Tabs, Accordion, SidePanel, ScrollArea, GridGroup, GraphBox, LogView, ImageView, MarkdownView, JsonView, JsonEditor, ChatView, WebView, MenuBar, ToolBar, ContextMenu, StatusBar, Splitter, CodeEditor, Tooltip, Dialog and Toast. Each one takes its params in snake_case and a Python function for a callback.</p>
+                <h2>A component of your own, in plain Python</h2>
+                <p>A class that makes its objects in a with block is a component: use it again and again, change it with its methods, share it as a .py file. No JavaScript is needed.</p>
+                <h2>A dialog that returns its answer</h2>
+                <p>Dialog.confirm() waits for the answer and returns it, like any function. The window keeps working meanwhile: timers run and the page is drawn.</p>
+                <h2>Twenty-six small programs</h2>
+                <p>A small code editor, A small Markdown editor, A small JSON viewer, A small JSON editor, A chat, Photos, Paint, Charts, A file tool, CSV viewer, A form, Image viewer, A job and its log, Word counter, To do, Settings, Dialogs, Gallery, The minimal look, The minimal look in a color, Calculator, The basic objects, Counter, Greeting, Clock and Catch the dots, in the examples folder of the source. Each one is checked in its real window.</p>
+                <h2>Where it fits</h2>
+                <p>A good choice for a small tool or a script that needs a window, for teaching Python with something to see, and for a modern look without learning Qt, HTML or CSS. For a large desktop application, Qt (PySide6) or Flet is better; for a web application for many users, NiceGUI or a web framework; for a data dashboard in the browser, Streamlit.</p>
+                <h2>Three steps</h2>
+                <ol>
+                    <li><b>Install.</b> Not on PyPI yet. Until then, install it from its source folder, in a virtual environment. It brings pywebview, the window of the system.</li>
+                    <li><b>Write start(page).</b> Make the objects of the window in it. Groups place them; a function runs on a click.</li>
+                    <li><b>Run it.</b> A window opens. Your program ends when it is closed.</li>
+                </ol>
+                <p>OzdenUI is open source under the Apache 2.0 license. This page is built with <a href="https://bug7a.github.io/basic.js/" style="color: inherit;">basic.js</a>. © 2020–2026 Buğra Özden.</p>
+            </div>
+        </div>
+    </noscript>
+
+</body>
+
+</html>
