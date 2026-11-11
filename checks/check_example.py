@@ -450,7 +450,7 @@ def play_chat(p):
     chat = p.first(ChatView)
     send_in_chat(p, chat, "my week")
     p.expect(p.js(f"{chat.js}.dotsRow.visible") == 1, "the dots while the first words are waited for")
-    p.wait_for_text("Ask again if something is not clear.", seconds=10)
+    p.wait_for_text("Ask again if something is not clear.", seconds=30)  # WHY this long: the macOS machine of the CI showed it at about 10 s (a Mac: 3 s)
     time.sleep(STEP_SECONDS)
     full = p.example.ANSWER.format(topic="my week")
     messages = chat.messages
@@ -1260,7 +1260,8 @@ def main():
     picture_file = sys.argv[2] if len(sys.argv) > 2 else ""
     theme = sys.argv[3] if len(sys.argv) > 3 else "light"
     example = load_example(name)
-    result = {"example": name if theme == "light" else f"{name} {theme}", "problems": [], "picture": None}
+    # WHY not empty: the play writes its own list when it ends; a window closed before that (the timer below) must not pass
+    result = {"example": name if theme == "light" else f"{name} {theme}", "problems": ["the window closed before the play ended"], "picture": None}
     stderr = TerminalProblems(sys.stderr)
     stderr.set_step("the window opens: start()")
     sys.stderr = stderr
