@@ -20,6 +20,7 @@ const IMAGE_SIZES = {
     "files": [1200, 735],
     "form": [1200, 1332],
     "gallery-dark": [1200, 946],
+    "gallery-styled-dark": [1200, 946],
     "gallery": [1200, 946],
     "game": [1200, 945],
     "gauge": [440, 416],
