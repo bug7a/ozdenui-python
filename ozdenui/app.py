@@ -105,8 +105,10 @@ def choose_folder(directory=""):
     return current_app().choose_folder(directory)
 
 
-def _page_address():
-    return pathlib.Path(_INDEX_FILE).as_uri()
+def _page_address(load_number=0):
+    """load_number: the page loaded again gets an address of its own (App._load_page_again)."""
+    address = pathlib.Path(_INDEX_FILE).as_uri()
+    return f"{address}?load={load_number}" if load_number else address
 
 
 def _ready_hint():
@@ -292,6 +294,7 @@ class App:
         self._event_order = _EventOrder(self._queue_event)
         self._timers = set()
         self._is_shown = False
+        self._load_number = 0  # how many times the page was loaded again
         self._app_thread_id = None
         self._commands = []
         self._other_thread_commands = []
@@ -479,7 +482,7 @@ class App:
         if not self._ready.wait(_READY_TIMEOUT_SECONDS):
             print(f"ozdenui: the page is not ready yet (basic.js or the bridge did not load){_ready_hint()}", file=sys.stderr)
             self._show_window()
-            self._window.load_url(_page_address())  # WHY: A load that never ends was seen: a new load is a new chance.
+            self._load_page_again()  # WHY: A load that never ends was seen: a new load is a new chance.
             # WHY it goes on waiting: a page that comes late on a slow computer must still start the program, not leave
             #      an empty window for ever.
             self._ready.wait()
@@ -749,7 +752,13 @@ class App:
         page_color = _DARK_PAGE_COLOR if theme == "dark" else ""
         self._window.evaluate_js(f"window.name = {json.dumps(_EARLY_PAGE_COLOR_PREFIX + page_color)}")
         self._is_loading_for_theme = True
-        self._window.load_url(_page_address())
+        self._load_page_again()
+
+    def _load_page_again(self):
+        # WHY a new address every time: WebView2 (Windows) loads only an address that is not the one it shows; the
+        #      page stayed the old one, and the app waited for ever for the new one (its window did not change again).
+        self._load_number += 1
+        self._window.load_url(_page_address(self._load_number))
 
     def _start_again(self):
         self._end_page_tasks()

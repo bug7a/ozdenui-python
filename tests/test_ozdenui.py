@@ -476,7 +476,7 @@ def test_set_theme_draws_the_page_again_in_the_other_theme(app, capsys):
     app.set_theme("dark")
     assert app.theme == "light"  # after the task that runs now
     run_queued_tasks(app)
-    assert app.theme == "dark" and app._window.loaded == [app_module._page_address()]
+    assert app.theme == "dark" and app._window.loaded == [app_module._page_address(1)]
     assert 'window.name = "ozdenui-page-color:#1C1C1B"' in app._window.scripts
     assert not app._timers  # WHY: a tick sent its commands to the page that was being loaded
     scripts = len(app._window.scripts)
@@ -491,6 +491,11 @@ def test_set_theme_draws_the_page_again_in_the_other_theme(app, capsys):
     assert made["props"]["styleName"] == "ozdenDark"
     assert "loaded again" not in capsys.readouterr().err  # the program asked for it
     stop_tick()
+    app.set_theme("light")
+    run_queued_tasks(app)
+    # WHY an address of its own: WebView2 (Windows) does not load the address it shows, and the app waited for ever
+    assert app._window.loaded == [app_module._page_address(1), app_module._page_address(2)]
+    assert app._window.loaded[1].endswith("/index.html?load=2")
 
 
 def test_set_theme_auto_follows_the_system_and_the_same_theme_changes_nothing(app):
@@ -1873,7 +1878,7 @@ def test_a_page_that_comes_late_still_starts_the_program(monkeypatch, capsys):
     thread.start()
     time.sleep(0.2)
     assert not started.is_set() and shown, "the window is shown while the page is late"
-    assert loaded == [app_module._page_address()], "the page is loaded once more"
+    assert loaded == [app_module._page_address(1)], "the page is loaded once more"
     assert "not ready yet" in capsys.readouterr().err
     late_app._on_page_ready("v1", 100, 100)
     assert started.wait(2), "the program starts when the page comes"
@@ -2408,17 +2413,19 @@ def test_a_page_loaded_again_answers_the_dialog_that_waits(app):
 
 
 def test_every_new_hole_in_front_gets_its_own_time(monkeypatch):
-    monkeypatch.setattr(app_module, "_GAP_SECONDS", 0.2)
+    gap = 1.0  # WHY this long: a slow machine of the CI slept past a gap of 0.2 s (its times are parts of it)
+    monkeypatch.setattr(app_module, "_GAP_SECONDS", gap)
     delivered = []
     order = app_module._EventOrder(delivered.append)
+    started = time.monotonic()
     order.add(2, 2)
     order.add(5, 5)  # two holes: 1 and 3-4
-    time.sleep(0.15)
-    order.add(1, 1)  # the first hole is filled: the hole in front is 3 now, with its own 0.2 s
+    time.sleep(0.5 * gap)
+    order.add(1, 1)  # the first hole is filled: the hole in front is 3 now, with its own gap
     assert delivered == [1, 2]
-    time.sleep(0.1)  # 0.25 s after the first hole: its old timer would have skipped the new hole here
+    time.sleep(max(0, started + 1.25 * gap - time.monotonic()))  # the old timer would have skipped the new hole
     assert delivered == [1, 2]
-    time.sleep(0.25)
+    time.sleep(max(0, started + 2 * gap - time.monotonic()))
     assert delivered == [1, 2, 5]
 
 
