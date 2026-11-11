@@ -540,8 +540,17 @@ class App:
         if self._is_shown:
             return
         self._is_shown = True
+        if sys.platform == "win32" and self._ready.is_set():
+            self._keep_focus_when_shown()
         self._window.show()
         self._mark("shown")
+
+    def _keep_focus_when_shown(self):
+        # WHY: on Windows the shown window gave its focus to the first object of the page (bridge.js tells more)
+        try:
+            self._window.evaluate_js("__bp.keepFocusWhenShown()")
+        except Exception:
+            traceback.print_exc()  # WHY: the window is shown all the same
 
     def _ask(self, object_id, method, page_args):
         """Calls a method on the page and returns its result."""

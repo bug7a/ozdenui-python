@@ -1881,6 +1881,28 @@ def test_a_page_that_comes_late_still_starts_the_program(monkeypatch, capsys):
     thread.join(2)
 
 
+def test_the_page_keeps_its_focus_when_the_window_is_shown_on_windows(app, monkeypatch):
+    """WHY: on Windows the shown window gave its focus to the first object of the page: its ring, and Enter pressed it."""
+    app._ready.set()
+    monkeypatch.setattr(app_module.sys, "platform", "win32")
+    app._show_window()
+    assert app._window.scripts == ["__bp.keepFocusWhenShown()"] and app._window.shown == 1
+    app._show_window()
+    assert len(app._window.scripts) == 1 and app._window.shown == 1, "once"
+
+
+def test_the_focus_is_left_alone_on_other_systems_and_on_a_late_page(app, monkeypatch):
+    monkeypatch.setattr(app_module.sys, "platform", "darwin")
+    app._ready.set()
+    app._show_window()
+    assert app._window.scripts == [] and app._window.shown == 1
+    late_app = App(lambda page: None)
+    late_app._window = FakeWindow()
+    monkeypatch.setattr(app_module.sys, "platform", "win32")
+    late_app._show_window()
+    assert late_app._window.scripts == [] and late_app._window.shown == 1, "a page that is not ready is not asked"
+
+
 def test_a_json_view_sends_any_value_as_the_page_can_show_it(app):
     class Thing:
         def __str__(self):

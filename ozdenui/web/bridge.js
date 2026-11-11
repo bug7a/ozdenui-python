@@ -45,6 +45,8 @@ window.__bp = (function () {
     const MAX_VALUE_DEPTH = 64; // only a guard: a value that holds itself is cut by toJson() where it comes again
     const MAX_FRACTION_DIGITS = 20;
     const SWEEP_INTERVAL_MS = 1000; // at most this often apply() looks for the objects the page removed itself
+    const SHOW_FOCUS_MS = 2000; // how long after the window is shown a focus that the user did not make is given back
+    const USER_ACTIONS = ["keydown", "mousedown", "pointerdown", "touchstart"];
     const GLOBAL_NAME = /^[A-Za-z_$][A-Za-z0-9_$]*$/;
     const objects = new Map(); // id -> basic.js object
     let eventNumber = 0;
@@ -402,6 +404,32 @@ window.__bp = (function () {
         return toJson(obj[method](...revive(args, id)));
     };
 
+    // Python calls it before the window is shown on Windows: the focus of the page stays where it is.
+    // WHY: pywebview gives the web view the focus when it shows the window, and WebView2 put it on the first object of
+    //      the page: its keyboard ring showed and Enter pressed it (the calculator cleared itself). The body holds the
+    //      focus when nothing has it, because WebView2 gives the focus back to the one that had it (also when the window
+    //      comes to the front again); a focus that comes before the user did anything goes back to it.
+    const keepFocusWhenShown = function () {
+        if (document.activeElement === document.body) {
+            document.body.tabIndex = -1; // WHY -1: it can hold the focus, and Tab does not stop on it
+            document.body.style.outline = "none";
+            document.body.focus({ preventScroll: true });
+        }
+        const focusBefore = document.activeElement;
+        const giveTheFocusBack = function (event) {
+            if (event.target === focusBefore) return;
+            stopWatching();
+            if (focusBefore.isConnected) focusBefore.focus({ preventScroll: true });
+        };
+        const stopWatching = function () {
+            window.removeEventListener("focusin", giveTheFocusBack, true);
+            USER_ACTIONS.forEach(function (name) { window.removeEventListener(name, stopWatching, true); });
+        };
+        window.addEventListener("focusin", giveTheFocusBack, true);
+        USER_ACTIONS.forEach(function (name) { window.addEventListener(name, stopWatching, true); });
+        setTimeout(stopWatching, SHOW_FOCUS_MS);
+    };
+
     const loadComponents = async function (names) {
         const errors = [];
         for (const file of filesInOrder(names, errors)) {
@@ -493,6 +521,6 @@ window.__bp = (function () {
     };
     window.addEventListener("pywebviewready", tellPythonWhenReady);
 
-    return { apply: apply, read: read, ask: ask, objectOf: objectOf, loadComponents: loadComponents };
+    return { apply: apply, read: read, ask: ask, objectOf: objectOf, loadComponents: loadComponents, keepFocusWhenShown: keepFocusWhenShown };
 
 })();

@@ -609,12 +609,19 @@ def play_the_theme_switch(p):
     the app, the ground of the page, the package of the fruit list (chosen by the code: LOOKS; or the dark look of the
     window) and the button itself."""
     other = "light" if p.app.theme == "dark" else "dark"
+    old_page = p.app.page
     p.click(p.example.THEME_BUTTON_TEXTS[p.app.theme])
-    # WHY the helpers again: they were on the old page
+    # WHY from Python: a question to the page while it is loaded again waits for the new page (pywebview), and on
+    #      Windows its answer never came. The app makes a new page object when the new page is ready.
     deadline = time.time() + WAIT_SECONDS
-    while time.time() < deadline and page_has_helpers(p):
+    while time.time() < deadline and p.app.page is old_page:
         time.sleep(STEP_SECONDS / 2)
-    p.js(HELPERS_JS)
+    if p.app.page is old_page:
+        p.problem(f"the page was not made again (loading: {p.app._is_loading_for_theme}, "
+                  f"loaded: {p.app._window.events.loaded.is_set()})")
+        return
+    p.on_app(lambda: None)  # WHY: it runs after start() and its drawing on the new page
+    p.js(HELPERS_JS)  # WHY again: they were on the old page
     p.wait_for_text(p.example.THEME_BUTTON_TEXTS[other])
     p.expect(p.app.theme == other, f"the theme after the button: {p.app.theme}")
     ground = p.js("page.color")
@@ -624,14 +631,6 @@ def play_the_theme_switch(p):
     expected_list = looks[other]["list"] if looks else window_look
     fruit_list = p.on_app(lambda: p.first(ItemList)._values.get("styleName"))
     p.expect(fruit_list == expected_list, f"the fruit list on the new page: {fruit_list} ({expected_list} expected)")
-
-
-def page_has_helpers(p):
-    """WHY a try: an answer of the page may fail while it is being loaded again."""
-    try:
-        return p.js("typeof window.__check") != "undefined"
-    except Exception:
-        return True
 
 
 def play_the_list_ground(p):
@@ -781,14 +780,16 @@ def play_files(p):
     p.expect(view["drop"].paths == [readme], f"the paths of a file from Python: {view['drop'].paths}")
     p.wait_for_text("README.md")
 
-    dropped = os.path.join(tempfile.mkdtemp(), "dropped note.txt")
-    with open(dropped, "w", encoding="utf-8") as file:
-        file.write("hello")
-    p.expect(drop_until_it_arrives(p, view["drop"], dropped), f"the real path of a dropped file: {view['drop'].files}")
-    p.expect(len(_dnd_state["paths"]) == 0, "pywebview gave the path it had")
-    p.wait_for_text(dropped)
-
-    p.expect(len(view["table"].rows) == 2, f"the rows of the table: {len(view['table'].rows)}")
+    # WHY not on Windows: WebView2 takes only a file of the disk in a drop (pywebview sends the files to learn their
+    #      paths), and the drop of this play is made in the page; a real drag from Explorer is tried by hand there.
+    if sys.platform != "win32":
+        dropped = os.path.join(tempfile.mkdtemp(), "dropped note.txt")
+        with open(dropped, "w", encoding="utf-8") as file:
+            file.write("hello")
+        p.expect(drop_until_it_arrives(p, view["drop"], dropped), f"the real path of a dropped file: {view['drop'].files}")
+        p.expect(len(_dnd_state["paths"]) == 0, "pywebview gave the path it had")
+        p.wait_for_text(dropped)
+        p.expect(len(view["table"].rows) == 2, f"the rows of the table: {len(view['table'].rows)}")
     p.type_in(view["search"], "values.py")
     p.expect(p.on_app(lambda: tree.get_node(os.path.join(folder, "values.py"))) is not None, "a search finds a file in a folder")
     p.expect(p.on_app(lambda: tree.get_node(folder)) is None, "the search shows only what it found")
