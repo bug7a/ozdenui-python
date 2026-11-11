@@ -146,7 +146,7 @@ const TEXTS = {
 
         // EXAMPLES
         examplesEyebrow: "EXAMPLES",
-        examplesTitle: "Twenty-six small programs",
+        examplesTitle: "Twenty-seven small programs",
         examplesLead: "In the examples folder of the source. Each one is checked in its real window: a test clicks, types and presses keys as a user would.",
         examples: [
             { key: "editor", image: "editor", title: "A small code editor", text: "Write Python, press F5 and read its output: a menu, a row of buttons, two areas, a dark theme." },
@@ -167,6 +167,7 @@ const TEXTS = {
             { key: "settings", image: "settings", title: "Settings", text: "Tabs with a form; the values as a dict." },
             { key: "dialogs", image: "dialogs-open", title: "Dialogs", text: "alert, confirm, prompt, ask and a toast." },
             { key: "gallery", image: "gallery", title: "Gallery", text: "Every component with a class, on one page." },
+            { key: "gallery-styled", image: "hero-gallery-styled", title: "The gallery in its own look", text: "The same page with looks and a color chosen by the code: style_name for some components, the cyan of the kit for every colored part." },
             { key: "minimal_theme", image: "minimal_theme", title: "The minimal look", text: "Every component in its minimal look, made of lines: App(style=\"minimal\"); a dark window too." },
             { key: "minimal_accent", image: "minimal_accent", title: "The minimal look in a color", text: "The same look in one color of yours: App(style=\"minimal\", accent=\"#2A78D6\")." },
             { key: "calculator", image: "calculator", title: "Calculator", text: "The keys in a GridGroup; the keys of the keyboard work too." },
@@ -339,7 +340,7 @@ const TEXTS = {
 
         // EXAMPLES
         examplesEyebrow: "ÖRNEKLER",
-        examplesTitle: "Yirmi altı küçük program",
+        examplesTitle: "Yirmi yedi küçük program",
         examplesLead: "Kaynağın examples klasöründe. Her biri gerçek penceresinde denenir: bir test, bir kullanıcı gibi tıklar, yazar ve tuşlara basar.",
         examples: [
             { key: "editor", image: "editor", title: "Küçük bir kod düzenleyici", text: "Python yazın, F5'e basın, çıktısını okuyun: menü, düğme satırı, iki alan, koyu tema." },
@@ -360,6 +361,7 @@ const TEXTS = {
             { key: "settings", image: "settings", title: "Ayarlar", text: "Sekmelerde bir form; değerler bir sözlük olarak." },
             { key: "dialogs", image: "dialogs-open", title: "Diyaloglar", text: "alert, confirm, prompt, ask ve bir toast." },
             { key: "gallery", image: "gallery", title: "Galeri", text: "Sınıfı olan bütün bileşenler bir sayfada." },
+            { key: "gallery-styled", image: "hero-gallery-styled", title: "Kendi görünümüyle galeri", text: "Aynı sayfa, görünümleri ve rengi kodla seçilmiş: bazı bileşenlerde style_name, renkli her parçada kitin camgöbeği rengi." },
             { key: "minimal_theme", image: "minimal_theme", title: "Minimal görünüm", text: "Çizgilerden yapılmış minimal görünümüyle her bileşen: App(style=\"minimal\"); koyu pencerede de." },
             { key: "minimal_accent", image: "minimal_accent", title: "Bir renkte minimal görünüm", text: "Aynı görünüm sizin bir renginizde: App(style=\"minimal\", accent=\"#2A78D6\")." },
             { key: "calculator", image: "calculator", title: "Hesap makinesi", text: "Tuşlar bir GridGroup'ta; klavyenin tuşları da çalışır." },

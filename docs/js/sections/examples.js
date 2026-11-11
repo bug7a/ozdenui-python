@@ -4,7 +4,7 @@
 
 OzdenUI Website - Examples - v26.11 (2026-11-04)
 
-The twenty examples of the source: the picture of the window, its name, one line, its file.
+The examples of the source: the picture of the window, its name, one line, its file.
 On a wide screen the rows hold three cards each. What does not fill them goes in rows of two, at the top and at the end: no card is alone.
 
 Started Date: November 2026
