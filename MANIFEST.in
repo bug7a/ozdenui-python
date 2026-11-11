@@ -1,0 +1,9 @@
+# The source package: the tests, the examples and the handbook go with it. (The wheel holds only ozdenui/.)
+# WHY the handbook: the tests run its programs (tests/test_handbook.py); a distribution that tests the source package
+#     found none and failed.
+include LICENSE NOTICE README.md make_stubs.py
+recursive-include examples *.py
+recursive-include handbook *.md
+recursive-include tests *.py *.js
+recursive-include checks *.py *.bat
+global-exclude .DS_Store *.pyc

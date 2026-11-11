@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ozdenui"
+version = "0.1.0"
+description = "Modern desktop windows in plain Python: the objects and components of basic.js. Only Python, no JavaScript or HTML"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Bugra Ozden" }]
+keywords = ["gui", "desktop", "ui", "webview", "basic.js", "beginner"]
+dependencies = ["pywebview>=6,<7"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: User Interfaces",
+]
+
+[project.urls]
+Homepage = "https://bug7a.github.io/ozdenui-python/"
+Documentation = "https://bug7a.github.io/ozdenui-python/handbook/"
+Repository = "https://github.com/bug7a/ozdenui-python"
+Issues = "https://github.com/bug7a/ozdenui-python/issues"
+
+# WHY packages.find: the folders of web/ look like packages to setuptools; listing them as packages with their own
+#     data files keeps the build clear (without it: "Package would be ignored" warnings, though the files went in).
+[tool.setuptools.packages.find]
+include = ["ozdenui", "ozdenui.*"]
+namespaces = true
+
+[tool.setuptools.package-data]
+"ozdenui" = ["py.typed", "*.pyi"]  # the stubs: an editor offers the params and marks a misspelled one
+"ozdenui.web" = ["*.html", "*.js"]
+"ozdenui.web.basic" = ["*.js", "*.css", "LICENSE"]
+"ozdenui.web.basic.font" = ["open-sans/*"]
+"ozdenui.web.comp" = ["*.js", "*/*"]

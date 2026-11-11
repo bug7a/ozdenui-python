@@ -1,0 +1,87 @@
+{
+  "startup": {
+    "page_ready": 532.8,
+    "first_draw_sent": 533.8,
+    "shown": 533.8
+  },
+  "create_batched": [
+    {
+      "objects": 1002,
+      "python_build_ms": 19.3,
+      "page_apply_ms": 12,
+      "total_ms": 44.9,
+      "apply_to_frame_ms": 27,
+      "total_to_screen_ms": 59.9,
+      "errors": 0
+    },
+    {
+      "objects": 1002,
+      "python_build_ms": 30.0,
+      "page_apply_ms": 6,
+      "total_ms": 44.3,
+      "apply_to_frame_ms": 18,
+      "total_to_screen_ms": 56.3,
+      "errors": 0
+    },
+    {
+      "objects": 1002,
+      "python_build_ms": 32.0,
+      "page_apply_ms": 7,
+      "total_ms": 50.8,
+      "apply_to_frame_ms": 21,
+      "total_to_screen_ms": 64.8,
+      "errors": 0
+    },
+    {
+      "objects": 1002,
+      "python_build_ms": 33.7,
+      "page_apply_ms": 8,
+      "total_ms": 53.2,
+      "apply_to_frame_ms": 22,
+      "total_to_screen_ms": 67.2,
+      "errors": 0
+    },
+    {
+      "objects": 1002,
+      "python_build_ms": 30.9,
+      "page_apply_ms": 6,
+      "total_ms": 49.8,
+      "apply_to_frame_ms": 21,
+      "total_to_screen_ms": 64.8,
+      "errors": 0
+    }
+  ],
+  "create_one_call_each": {
+    "objects": 1002,
+    "total_ms": 416.8
+  },
+  "measure_round_trip_ms": {
+    "median": 0.2,
+    "p95": 0.3,
+    "min": 0.1,
+    "max": 1.5
+  },
+  "click_to_page_ms": {
+    "median": 3.0,
+    "p95": 5,
+    "min": 1,
+    "max": 7
+  },
+  "click_to_frame_ms": {
+    "median": 4.0,
+    "p95": 7,
+    "min": 1,
+    "max": 8
+  },
+  "clicks": {
+    "sent": 50,
+    "text_on_page": "50",
+    "text_in_python": "50"
+  },
+  "machine": {
+    "python": "3.9.6",
+    "pywebview": "6.2.1",
+    "os": "Darwin 27.0.1",
+    "basic_js": "26.11.05"
+  }
+}

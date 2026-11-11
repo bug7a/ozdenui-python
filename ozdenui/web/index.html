@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Bismillah -->
+<!--
+
+index.html - ozdenui v0.1 (OzdenUI: basic.js for Python)
+The page of the window: basic.js, the components of comp/ and the bridge that runs the commands of Python.
+
+Started Date: November 2026
+Webpage: https://bug7a.github.io/ozdenui-python/
+
+Copyright 2020-2026 Bugra Ozden <bugra.ozden@gmail.com> (https://bug7a.github.io/)
+Licensed under the Apache License, Version 2.0
+SPDX-License-Identifier: Apache-2.0
+
+-->
+<html lang="en">
+    <head>
+
+        <title>ozdenui</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- LIBRARY FILES (copied by update-web.sh) -->
+        <link rel="preload" href="basic/font/open-sans/OpenSans-Regular.ttf" as="font" crossorigin="anonymous">
+        <link rel="preload" href="basic/font/open-sans/OpenSans-Bold.ttf" as="font" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="basic/basic.min.css">
+        <script src="basic/basic.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="basic/scroll-bar.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- THE COMPONENTS OF THE PYTHON CLASSES (the needed ones first). The others: components.js -->
+        <script src="comp/tooltip.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/text-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/text-area-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/search-input.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/smart-button.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/check-box.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/toggle.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/radio-button.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/item-list.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/select-box.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/slider-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/progress-bar.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/context-menu.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/smart-table.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/tabs.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/dialog.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/toast.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/log-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/image-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/menu-bar.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/status-bar.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/splitter.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/code-editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/email-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/password-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/number-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/tiny-select.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/url-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/phone-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/currency-field.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/sortable-list.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/web-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/slider.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/graph-box.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/tree-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/date-picker.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/time-picker.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/color-picker.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/stepper.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/file-picker.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/accordion.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/grid-group.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/tool-bar.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/markdown-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/json-view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/json-editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/range-slider.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/canvas.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/step-bar.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/side-panel.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/loading-screen.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/tag-input.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/data-table.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/scroll-area.js" type="text/javascript" charset="utf-8"></script>
+        <script src="comp/chat-view.js" type="text/javascript" charset="utf-8"></script>
+        <!-- after the components: MinimalAccent gives them the packages of App(accent=...) -->
+        <script src="comp/minimal-accent.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- THE BRIDGE: Python commands -> basic.js objects -->
+        <script src="components.js" type="text/javascript" charset="utf-8"></script>
+        <script src="bridge.js" type="text/javascript" charset="utf-8"></script>
+
+    </head>
+    <body></body>
+</html>
