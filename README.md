@@ -3,6 +3,13 @@
 A small, modern window of its own in Python, made of [basic.js](https://bug7a.github.io/basic.js/) objects and components.
 Only Python: no JavaScript, no HTML, no browser tab, no server. Your Python code makes the objects, and a window shows them.
 
+<p align="center">
+  <img src="https://bug7a.github.io/ozdenui-python/images/hero-gallery-styled.webp" width="800"
+       alt="The window of examples/gallery-styled.py: a menu bar, a toolbar, cards of components (SmartButton, CheckBox, Toggle, RadioButton, SelectBox, SliderField, TextAreaField, ItemList) and a status bar">
+</p>
+
+The window above is [examples/gallery-styled.py](https://github.com/bug7a/ozdenui-python/blob/main/examples/gallery-styled.py), the components of the kit in one window.
+
 ```python
 from ozdenui import App, HGroup, Label, SmartButton, VGroup
 
@@ -22,6 +29,8 @@ App(start, title="Counter", size=(400, 320)).run()
 ```
 pip install ozdenui
 ```
+
+v0.1, experimental: tested on macOS and Windows; Linux is not tested yet.
 
 On a Mac with the Python of the system, upgrade pip first (`python3 -m pip install --upgrade pip`): its old pip tries to
 build a part of pywebview from source and fails.

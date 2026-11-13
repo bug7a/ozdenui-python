@@ -61,7 +61,7 @@ PEOPLE = [
 COLUMNS = [
     {"key": "name", "title": "Name", "width": 180, "sortable": True},
     {"key": "city", "title": "City", "width": 120, "sortable": True},
-    {"key": "age", "title": "Age", "width": 70, "type": "number", "align": "right", "sortable": True},
+    {"key": "age", "title": "Age", "width": 70, "type": "integer", "sortable": True},
 ]
 
 
