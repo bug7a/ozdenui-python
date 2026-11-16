@@ -108,3 +108,39 @@ def test_the_package_points_an_assistant_to_the_rules():
     stubs = (command.RULES_FILE.parent / "__init__.pyi").read_text(encoding="utf-8")
     assert "read AGENTS.md next to this file" in ozdenui.__doc__
     assert "read AGENTS.md next to this file" in stubs[:800]
+
+
+def test_look_asks_for_a_program_file_that_is_there(tmp_path, monkeypatch, capsys):
+    monkeypatch.chdir(tmp_path)
+    assert command.main(["look", "no_such.py"]) == 2
+    assert "no such program file" in capsys.readouterr().out
+
+
+def test_look_runs_the_program_in_the_asked_theme_and_tells_a_program_without_a_window(tmp_path, monkeypatch, capsys):
+    from ozdenui import _look
+
+    # A program with no window: look() says so, and the theme of the look reaches an App made meanwhile
+    program = tmp_path / "plain.py"
+    program.write_text("import sys\nfrom ozdenui import App\nsys.modules['__look_test__'] = App(lambda page: None)\n", encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    assert command.main(["look", "plain.py", "--theme", "dark"]) == 1
+    assert "opened no window" in capsys.readouterr().out
+    import sys
+    assert sys.modules.pop("__look_test__").theme == "dark"
+    assert app_module._look is None
+    assert _look.DEFAULT_WAIT_SECONDS > 0
+    assert not (tmp_path / "plain.png").exists()
+
+
+def test_the_window_tells_the_look_when_it_is_shown(monkeypatch):
+    shown = []
+    monkeypatch.setattr(app_module, "_look", {"theme": "", "on_shown": shown.append})
+    monkeypatch.setattr(App, "run", run_start_only)
+    application = App(lambda page: None)
+    try:
+        application.run()
+        application._show_window()
+        application._show_window()
+        assert shown == [application]
+    finally:
+        app_module._current = None

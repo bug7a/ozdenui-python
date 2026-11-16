@@ -2940,3 +2940,17 @@ def test_framed_false_takes_the_frame_of_a_component(app):
     assert created(app, own)["props"]["style"] == {"box": {"round": 8, "color": "white", "border": 0}, "line": {"fontSize": 12}}
     assert created(app, Component("Gauge", framed=False))["props"]["style"] == {"box": {"border": 0, "round": 0}}
     assert "style" not in created(app, ozdenui.LogView(height=200))["props"]  # framed=True, the default, adds nothing
+
+
+def test_a_smart_table_that_fills_a_row_keeps_the_room_of_its_scroll_buttons(app):
+    # WHY: with the width "100%" the table grew over the room of its scroll buttons (right of its box) and the next
+    #      object of the row covered them; "auto" lets the table of the page keep that room as a margin
+    columns = [{"key": "name"}]
+    with HGroup():
+        in_row = ozdenui.SmartTable(columns=columns, height="100%", fill=True)
+        asked = ozdenui.SmartTable(columns=columns, fill=True, width="50%")
+    with VGroup():
+        in_column = ozdenui.SmartTable(columns=columns, fill=True)
+    plain = ozdenui.SmartTable(columns=columns)
+    widths = [created(app, table)["props"]["style"]["width"] for table in (in_row, asked, in_column, plain)]
+    assert widths == ["auto", "50%", "100%", "100%"]

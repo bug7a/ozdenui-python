@@ -31,7 +31,7 @@ import urllib.request
 from collections import Counter
 
 from . import app as _app
-from .objects import (_POSITION_NAMES, ACCENT_STYLE_NAME, DARK_STYLE_NAMES, BasicObject, Component, Part, TypedComponent, _listen_for_enter, _new_id,
+from .objects import (_POSITION_NAMES, ACCENT_STYLE_NAME, DARK_STYLE_NAMES, BasicObject, Component, GridGroup, HGroup, Part, TypedComponent, _listen_for_enter, _new_id,
                       _takes_minimal_look, _warn_about_unknown_names, minimal_style_name)
 from .values import call_with_count, camel_case, picture_address, positional_count, snake_case as _snake_case, source_line, to_page
 
@@ -1187,7 +1187,7 @@ class SmartTable(TypedComponent):
         params = dict(zip(_POSITION_NAMES, position), **params)
         # WHY in the style: the size of a SmartTable is read from its style, not from the box.
         style = dict(params.get("style") or {})
-        style.setdefault("width", params.pop("width", "100%"))
+        style.setdefault("width", params.pop("width", self._default_width(params)))
         height = params.pop("height", None)
         style.setdefault("height", "auto" if height is None else height)
         params["style"] = style
@@ -1201,6 +1201,18 @@ class SmartTable(TypedComponent):
             params["on_select"] = self._page_select_handler(on_select)
         super().__init__(**params)
         self._keep("rows", table_rows)
+
+    @staticmethod
+    def _default_width(params):
+        """ "100%", or "auto" for a table with fill=True in an HGroup: it takes the width that is left.
+        WHY: the table keeps the room of its scroll buttons (right of its box) as a margin only when its width is not
+        a percent; with "100%" the table grew over that room and the next object of the row covered the buttons."""
+        if not params.get("fill"):
+            return "100%"
+        app = _app.current_app()
+        parent = app._objects.get(app._container_id())
+        is_in_row = isinstance(parent, HGroup) and not isinstance(parent, GridGroup)
+        return "auto" if is_in_row else "100%"
 
     def _page_select_handler(self, handler):
         """WHY: the page gives the table of the page and the row; the function gets this object and the row."""

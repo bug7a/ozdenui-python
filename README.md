@@ -44,7 +44,9 @@ python -m ozdenui agents              # into AGENTS.md
 python -m ozdenui agents CLAUDE.md    # into the file Claude Code reads
 ```
 
-A file that is there keeps your lines; run it again after an upgrade of the package.
+A file that is there keeps your lines; run it again after an upgrade of the package. An assistant can not see the
+window it made: `python -m ozdenui look app.py` runs the program, saves a picture of its window (`app.png`) and closes
+it (`--theme dark`, `--wait 3`).
 
 **Learn it step by step:** [the handbook](https://github.com/bug7a/ozdenui-python/blob/main/handbook/README.md), ten short chapters for people who know Python and have
 never written a web page (the first window, objects, layout, events, components, dialogs, looks, data, your own

@@ -49,6 +49,7 @@ _EARLY_PAGE_COLOR_PREFIX = "ozdenui-page-color:"  # window.name of a page loaded
 _RELOAD_DELAY_MS = 50  # the page of set_theme() loads itself again this much after the script that asks it
 _WEBVIEW2_ADDRESS = "https://developer.microsoft.com/microsoft-edge/webview2/"
 _current = None
+_look = None  # python -m ozdenui look: {"theme", "on_shown"} (_look.py), else None
 
 
 def _check_accent(style, accent, accent_dark):
@@ -274,6 +275,8 @@ class App:
                  accent="", accent_dark=""):
         if theme not in _THEMES:
             raise ValueError(f'App(theme={theme!r}): it is "light", "dark" or "auto"')
+        if _look and _look["theme"]:
+            theme = _look["theme"]
         if style not in _STYLES:
             raise ValueError(f'App(style={style!r}): it is "" or "minimal"')
         _check_accent(style, accent, accent_dark)
@@ -545,6 +548,8 @@ class App:
             self._keep_focus_when_shown()
         self._window.show()
         self._mark("shown")
+        if _look:
+            _look["on_shown"](self)
 
     def _keep_focus_when_shown(self):
         # WHY: on Windows the shown window gave its focus to the first object of the page (bridge.js tells more)

@@ -109,8 +109,7 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 - A picture (`Icon(picture=)`, `ImageView`) takes a path, bytes, a Pillow image or a matplotlib figure.
 - `SmartTable`: a row may carry keys that are not columns (`"id": 7`); `table.selected_row` and
   `on_select(table, row)` give them back, so find a row by its id, not by its texts. The values are shown as text:
-  format the numbers in Python. Its scroll bar stands outside, right of its box: leave about 24 px there (a `gap` or a
-  `padding`), or the next object covers it.
+  format the numbers in Python.
 - A component of the kit without a class: `Component("Gauge", value=72)` with `App(start, components=["Gauge"])`.
 
 ## Looks
@@ -136,9 +135,14 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 5. Waiting in an event (`time.sleep`, a download): the window freezes.
 6. Colors written for a light window only, in a program that may open dark.
 7. A callback that must answer at once (a validator that returns `False`) can not be a Python function.
+8. Saying a window is right without a look at it (`python -m ozdenui look`, below).
 
 ## Running and checking
 
+- **Look at the window you made:** `python -m ozdenui look app.py` runs the program as it is, saves a picture of its
+  window as `app.png` and closes it. Read the picture: a program that runs without an error can still have a part
+  covered, cut or squeezed. `python -m ozdenui look app.py dark.png --theme dark --wait 3`: another file, the dark
+  window, more seconds before the picture. (On Windows it needs Pillow and the window in front.)
 - `python my_program.py` opens a real window and returns when it is closed. To check a program without a person,
   close it from the code: `after(3000, page.app.close)` as the first line of `start()`, then read the terminal
   (`python -u`: the prints come at once; macOS has no `timeout` command).
