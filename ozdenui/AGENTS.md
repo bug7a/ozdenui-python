@@ -49,6 +49,7 @@ App(start, title="Notes", size=(480, 420)).run()   # once, at the end of the pro
 - `App(start, title=, size=(w, h), theme="light" | "dark" | "auto", style="" | "minimal", accent="#2A78D6")`.
   Inside the functions it is `page.app` (`page.app.close()`, `page.app.set_title()`, `page.app.theme`).
 - Objects are made in `start()` or later (an event, a timer), never before `run()`.
+- The app outside `start()`: `app = App(start, title=...)`, then `app.run()` on the last line; the functions use `app`.
 - A class works as well as the dict: `self.name = TextField(...)`, then `App(MyApp().start).run()`.
 
 ## Objects and values
@@ -106,6 +107,10 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 - `Toast.success("Saved.")`, `.error()`, `.warning()`, `.info()` never wait.
 - The file dialogs of the system: `open_file()`, `save_file()`, `choose_folder()` return a real path or `None`.
 - A picture (`Icon(picture=)`, `ImageView`) takes a path, bytes, a Pillow image or a matplotlib figure.
+- `SmartTable`: a row may carry keys that are not columns (`"id": 7`); `table.selected_row` and
+  `on_select(table, row)` give them back, so find a row by its id, not by its texts. The values are shown as text:
+  format the numbers in Python. Its scroll bar stands outside, right of its box: leave about 24 px there (a `gap` or a
+  `padding`), or the next object covers it.
 - A component of the kit without a class: `Component("Gauge", value=72)` with `App(start, components=["Gauge"])`.
 
 ## Looks
@@ -114,6 +119,9 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
   `page.app.theme` (`"light"` or `"dark"`): `TEXT = {"light": "#5A6270", "dark": "#9AA3B5"}[page.app.theme]`.
 - `App(start, style="minimal", accent="#2A78D6")`: a small look made of lines, in one color; the main button is
   `SmartButton(tone="accent")`.
+- `page.app.set_theme("dark")` changes the theme while the program runs: the page is made again and `start()` runs
+  again, so every object is new and the timers set before are gone. Keep the data in variables outside `start()`,
+  fill the objects from them in `start()`, and set the timers there.
 - One component: `style_name="..."` (its packages are named in its docstring), or `style={"box": {"color": "#FFF"}}`.
 - Keep the colors of a program as names at the top of its file.
 
@@ -132,6 +140,9 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 ## Running and checking
 
 - `python my_program.py` opens a real window and returns when it is closed. To check a program without a person,
-  close it from the code: `after(3000, page.app.close)` as the first line of `start()`, then read the terminal.
+  close it from the code: `after(3000, page.app.close)` as the first line of `start()`, then read the terminal
+  (`python -u`: the prints come at once; macOS has no `timeout` command).
+- A check that plays the program from code (calls its functions after `start()`) must not reach a `Dialog`: it waits
+  for a person. Give the function a way around it in the check.
 - `App(start, debug=True)` gives the developer tools of the web view (right click > Inspect).
 - macOS and Windows (WebView2). No browser or Jupyter mode.
