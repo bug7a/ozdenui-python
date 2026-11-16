@@ -30,7 +30,7 @@ const CONFIG = {
 
     // *** THE PACKAGE:
     packageName: "ozdenui",
-    version: "0.1.1",
+    version: "0.1.2",
     // false until the package is on PyPI: the page says to install from the source (no "pip install" that fails)
     isOnPypi: true,
     pypiURL: "https://pypi.org/project/ozdenui/",

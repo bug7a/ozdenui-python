@@ -99,6 +99,18 @@ python -m ozdenui agents --print      # yalnızca yazdırır
 - Var olan bir dosyada satırlarınız kalır: kurallar dosyanın sonuna, iki işaretin arasına yazılır. Paketi
   yükselttikten sonra komutu yeniden çalıştırın: yalnızca o bölüm değişir.
 
+Bir asistan yaptığı pencereyi göremez. Bir komut daha pencerenin resmini alır:
+
+```
+python -m ozdenui look app.py                              # app.py'yi çalıştırır, app.png'yi kaydeder, pencereyi kapatır
+python -m ozdenui look app.py dark.png --theme dark --wait 3
+```
+
+- Program olduğu gibi çalışır; resim ilk çizimden 1,5 sn sonra alınır (`--wait`), sonra pencere kapanır.
+- `--theme dark` pencereyi, program ne isterse istesin, koyu açar.
+- Mac'te resim pencerenin kendisinden gelir. Windows'ta ekranın o bölümüdür: Pillow ister (`pip install pillow`) ve
+  pencere önde olmalıdır.
+
 ## Bundan sonra
 
 - Paket kaynağındaki **örnekler**, en küçüğünden başlayarak: `basics`, `counter`, `greeting`, `calculator`, `todo`,

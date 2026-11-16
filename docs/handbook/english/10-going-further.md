@@ -96,6 +96,18 @@ python -m ozdenui agents --print      # only prints them
 - A file that is there keeps your lines: the rules go to its end, between two marks. Run the command again after an
   upgrade of the package: only that part changes.
 
+An assistant can not see the window it made. One more command takes a picture of it:
+
+```
+python -m ozdenui look app.py                              # runs app.py, saves app.png, closes the window
+python -m ozdenui look app.py dark.png --theme dark --wait 3
+```
+
+- The program runs as it is; the picture is taken 1.5 s after its first drawing (`--wait`), then the window closes.
+- `--theme dark` opens the window dark, whatever the program asks.
+- On a Mac the picture comes from the window itself. On Windows it is that part of the screen: it needs Pillow
+  (`pip install pillow`) and the window in front.
+
 ## Where to go next
 
 - **The examples** of the package source, from the smallest: `basics`, `counter`, `greeting`, `calculator`, `todo`,
