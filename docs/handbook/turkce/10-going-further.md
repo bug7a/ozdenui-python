@@ -82,6 +82,23 @@ komutlar sayfaya hemen gider. Uzun bir iş için `run_in_background()` daha iyid
 - PyInstaller ile tek dosya yapılan bir program, paketin dosyalarını ister (`--collect-data ozdenui`); bu henüz
   denenmedi.
 
+## Bir yapay zekâ asistanıyla
+
+OzdenUI yeni olduğu için bir yapay zekâ asistanı (Claude Code, Codex, Cursor, Copilot...) onu henüz tanımaz ve bildiği
+araçlardan tahmin yürütür. Tek bir komut, paketin kurallarını projenizin klasörüne yazar; asistan onları kendiliğinden
+okur:
+
+```
+python -m ozdenui agents              # AGENTS.md dosyasına
+python -m ozdenui agents CLAUDE.md    # Claude Code'un okuduğu dosyaya
+python -m ozdenui agents --print      # yalnızca yazdırır
+```
+
+- Kurallar kısadır: bir program nasıl kurulur, yerleşim, olaylar, bileşenler, kaçınılacak hatalar ve her sınıfın
+  parametrelerinin nerede olduğu.
+- Var olan bir dosyada satırlarınız kalır: kurallar dosyanın sonuna, iki işaretin arasına yazılır. Paketi
+  yükselttikten sonra komutu yeniden çalıştırın: yalnızca o bölüm değişir.
+
 ## Bundan sonra
 
 - Paket kaynağındaki **örnekler**, en küçüğünden başlayarak: `basics`, `counter`, `greeting`, `calculator`, `todo`,

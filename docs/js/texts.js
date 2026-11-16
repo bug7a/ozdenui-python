@@ -37,12 +37,12 @@ const TEXTS = {
         copyFailed: "The code could not be copied.",
 
         // HERO
-        heroEyebrow: "v{version} · experimental · Python {python}+",
+        heroEyebrow: "v{version} · experimental · Python {python}+ · tested\u00A0on\u00A0macOS\u00A0and\u00A0Windows", // WHY \u00A0: on a phone the platforms go to the second line together
         heroTitle: "Modern desktop windows, in\u00A0plain Python", // WHY \u00A0: the line breaks before "in", not after it
         heroLead: "Write the window in Python: boxes, texts, buttons and ready components appear in a small window of its own. Only Python: no JavaScript, no HTML, no browser tab, no server.",
         heroPrimary: "Get started",
         heroSecondary: "See the examples",
-        heroFacts: ["{classes} components with a Python class", "all {components} of basic.js by name", "{size} with its window", "{license}"],
+        heroFacts: ["{classes} components with a Python class", "all {components} of basic.js by name", "basic.js inside: about {size}, no internet", "{license}"],
         heroSlidesLabel: "The windows of the examples",
         heroShotAlts: {
             "hero-gallery-styled": "The window of examples/gallery-styled.py: buttons, a check box, a toggle, radio buttons, a drop-down list, a slider, a progress bar, a note field and lists, in the colors its code chose.",
@@ -69,7 +69,7 @@ const TEXTS = {
         whyEyebrow: "WHY",
         whyTitle: "Small, fast enough, easy to read",
         why: [
-            { icon: "feather", title: "Small and offline", text: "The package carries basic.js and its components. With its window it is about {size}; no internet, no server, no browser tab." },
+            { icon: "feather", title: "Small and offline", text: "The package carries basic.js and its components (about {size}); no internet, no server, no browser tab." },
             { icon: "bolt", title: "Fast enough to forget", text: "A click reaches your Python function and comes back on the screen in about {click}. The window shows in about {show}." },
             { icon: "code", title: "Code that reads like the window", text: "with blocks for groups, the names of basic.js, values read back without asking the window. An error points to your line." },
             { icon: "grid", title: "Components ready", text: "{classes} components have a Python class: buttons, fields, lists, a table, a chart, dialogs. All {components} of basic.js work with Component()." },
@@ -231,12 +231,12 @@ const TEXTS = {
         copyFailed: "Kod kopyalanamadı.",
 
         // HERO
-        heroEyebrow: "v{version} · deneysel · Python {python}+",
+        heroEyebrow: "v{version} · deneysel · Python {python}+ · macOS\u00A0ve\u00A0Windows'ta\u00A0denendi",
         heroTitle: "Düz Python ile modern masaüstü pencereleri",
         heroLead: "Pencereyi Python ile yazın: kutular, metinler, düğmeler ve hazır bileşenler kendi küçük penceresinde görünür. Yalnız Python: JavaScript yok, HTML yok, tarayıcı sekmesi ve sunucu yok.",
         heroPrimary: "Başlayın",
         heroSecondary: "Örneklere bakın",
-        heroFacts: ["Python sınıfı olan {classes} bileşen", "basic.js'in {components} bileşeninin hepsi adıyla", "penceresiyle birlikte {size}", "{license}"],
+        heroFacts: ["Python sınıfı olan {classes} bileşen", "basic.js'in {components} bileşeninin hepsi adıyla", "içinde basic.js: yaklaşık {size}, internetsiz", "{license}"],
         heroSlidesLabel: "Örneklerin pencereleri",
         heroShotAlts: {
             "hero-gallery-styled": "examples/gallery-styled.py'nin penceresi: düğmeler, onay kutusu, açma-kapama düğmesi, seçenek düğmeleri, açılır liste, kaydırıcı, ilerleme çubuğu, not alanı ve listeler, kodunun seçtiği renklerde.",
@@ -263,7 +263,7 @@ const TEXTS = {
         whyEyebrow: "NEDEN",
         whyTitle: "Küçük, yeterince hızlı, kolay okunan",
         why: [
-            { icon: "feather", title: "Küçük ve internetsiz", text: "Paket basic.js'i ve bileşenlerini içinde taşır. Penceresiyle birlikte yaklaşık {size}; internet, sunucu ve tarayıcı sekmesi gerekmez." },
+            { icon: "feather", title: "Küçük ve internetsiz", text: "Paket basic.js'i ve bileşenlerini içinde taşır (yaklaşık {size}); internet, sunucu ve tarayıcı sekmesi gerekmez." },
             { icon: "bolt", title: "Akla gelmeyecek kadar hızlı", text: "Bir tıklama Python fonksiyonunuza ulaşıp yaklaşık {click} içinde ekrana döner. Pencere yaklaşık yarım saniyede açılır." },
             { icon: "code", title: "Pencere gibi okunan kod", text: "Gruplar için with blokları, basic.js'in adları, pencereye sormadan okunan değerler. Bir hata sizin satırınızı gösterir." },
             { icon: "grid", title: "Hazır bileşenler", text: "{classes} bileşenin Python sınıfı var: düğmeler, alanlar, listeler, tablo, grafik, diyaloglar. basic.js'in {components} bileşeninin hepsi Component() ile çalışır." },

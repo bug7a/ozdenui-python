@@ -30,7 +30,7 @@ const CONFIG = {
 
     // *** THE PACKAGE:
     packageName: "ozdenui",
-    version: "0.1.0",
+    version: "0.1.1",
     // false until the package is on PyPI: the page says to install from the source (no "pip install" that fails)
     isOnPypi: true,
     pypiURL: "https://pypi.org/project/ozdenui/",
@@ -46,9 +46,11 @@ const CONFIG = {
 
     // *** FACTS: (measured on a Mac, 2026-11-03; ozdenui-python/plan.md)
     // WHY \u00A0: a number and its unit stay on one line
-    componentClasses: 53,
+    // the classes of ozdenui that are components of the kit; the names of web/components.js (88)
+    componentClasses: 54,
     componentCount: 88,
-    installSize: "12\u00A0MB",
+    // basic.js and its components in the package (ozdenui/web), the number of the README
+    installSize: "3\u00A0MB",
     clickTime: "3\u00A0ms",
     showTime: "0.5\u00A0s",
     license: "Apache 2.0",

@@ -38,7 +38,13 @@ const HeroSection = function (params = {}) {
         that.borderColor = SITE.ACCENT_ON_DARK_LINE;
 
             Box({ width: 7, height: 7, round: 4, color: SITE.ACCENT_ON_DARK });
+            that.elem.style.flexShrink = "0"; // WHY: the dot stays round when the text goes on to two lines
             SITE.label(TEXTS.fill(T.heroEyebrow), { fontSize: 13, textColor: SITE.ACCENT_ON_DARK });
+            // WHY: the platforms make the pill wider than a phone: there it goes on to a second line
+            if (L.mobile) {
+                that.elem.style.whiteSpace = "normal";
+                that.elem.style.textAlign = "center";
+            }
 
         endGroup();
 
