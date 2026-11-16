@@ -28,6 +28,7 @@ HEADER = '''# Bismillah
 """__init__.pyi - ozdenui v0.1 (OzdenUI: basic.js for Python)
 The stubs of the package for an editor: the names every class takes, so they are offered and a misspelled one is marked.
 Made by make_stubs.py from the classes and the kit copy in web/: do not change it by hand.
+AI assistants: read AGENTS.md next to this file before writing code with this package.
 
 Started Date: November 2026
 Webpage: https://bug7a.github.io/ozdenui-python/

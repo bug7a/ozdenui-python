@@ -11,6 +11,9 @@ Python.
 
     App(start, title="Counter", size=(400, 300)).run()
 
+AI assistants: read AGENTS.md next to this file before writing code with this package (how a program is made, the
+layout, the events, the mistakes to avoid). python -m ozdenui agents writes it into the folder of a project.
+
 Started Date: November 2026
 Webpage: https://bug7a.github.io/ozdenui-python/
 
@@ -27,7 +30,7 @@ from .components import (Accordion, Canvas, ChatView, CheckBox, CodeEditor, Colo
                          Tooltip, TreeView, UrlField, WebView, picture_address)
 from .objects import Box, Button, Component, GridGroup, HGroup, Icon, Input, Label, VGroup
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = [
     "App", "WindowClosed", "every", "after", "call_soon", "run_in_background", "open_file", "save_file", "choose_folder",
     "Box", "VGroup", "HGroup", "GridGroup", "ScrollArea", "Label", "Button", "Input", "Icon", "Component",

@@ -35,6 +35,17 @@ v0.1, experimental: tested on macOS and Windows; Linux is not tested yet.
 On a Mac with the Python of the system, upgrade pip first (`python3 -m pip install --upgrade pip`): its old pip tries to
 build a part of pywebview from source and fails.
 
+**With an AI assistant** (Claude Code, Codex, Cursor, Copilot...): OzdenUI is new, so an assistant does not know it
+yet. One command writes its rules (how a program is made, the layout, the events, the components, the mistakes to
+avoid) into the folder of your project, where the assistant reads them by itself:
+
+```
+python -m ozdenui agents              # into AGENTS.md
+python -m ozdenui agents CLAUDE.md    # into the file Claude Code reads
+```
+
+A file that is there keeps your lines; run it again after an upgrade of the package.
+
 **Learn it step by step:** [the handbook](https://github.com/bug7a/ozdenui-python/blob/main/handbook/README.md), ten short chapters for people who know Python and have
 never written a web page (the first window, objects, layout, events, components, dialogs, looks, data, your own
 component, going further). Every program in it is run by the tests. In Turkish:

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ozdenui"
-version = "0.1.0"
+version = "0.1.1"
 description = "Modern desktop windows in plain Python: the objects and components of basic.js. Only Python, no JavaScript or HTML"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -43,7 +43,7 @@ include = ["ozdenui", "ozdenui.*"]
 namespaces = true
 
 [tool.setuptools.package-data]
-"ozdenui" = ["py.typed", "*.pyi"]  # the stubs: an editor offers the params and marks a misspelled one
+"ozdenui" = ["py.typed", "*.pyi", "AGENTS.md"]  # the stubs: an editor offers the params and marks a misspelled one; AGENTS.md: python -m ozdenui agents
 "ozdenui.web" = ["*.html", "*.js"]
 "ozdenui.web.basic" = ["*.js", "*.css", "LICENSE"]
 "ozdenui.web.basic.font" = ["open-sans/*"]

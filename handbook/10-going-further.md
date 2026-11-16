@@ -79,6 +79,23 @@ page at once. A long job is better in `run_in_background()` (chapter 4).
 - A program made into one file with PyInstaller needs the files of the package (`--collect-data ozdenui`); this has
   not been tried yet.
 
+## With an AI assistant
+
+OzdenUI is new, so an AI assistant (Claude Code, Codex, Cursor, Copilot...) does not know it yet and guesses from the
+toolkits it knows. One command writes the rules of the package into the folder of your project, where the assistant
+reads them by itself:
+
+```
+python -m ozdenui agents              # into AGENTS.md
+python -m ozdenui agents CLAUDE.md    # into the file Claude Code reads
+python -m ozdenui agents --print      # only prints them
+```
+
+- The rules are short: how a program is made, the layout, the events, the components, the mistakes to avoid, and where
+  the params of every class are.
+- A file that is there keeps your lines: the rules go to its end, between two marks. Run the command again after an
+  upgrade of the package: only that part changes.
+
 ## Where to go next
 
 - **The examples** of the package source, from the smallest: `basics`, `counter`, `greeting`, `calculator`, `todo`,
