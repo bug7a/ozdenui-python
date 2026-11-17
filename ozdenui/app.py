@@ -76,6 +76,9 @@ def every(milliseconds, task):
     return current_app().every(milliseconds, task)
 
 
+_MAX_FRAME_PX = 120  # a larger difference is not a title bar and edges (a small screen made the window smaller)
+
+
 def _centered_on_windows():
     """WHY: on Windows a window made hidden and shown later opened at the place Windows gives (208, 208), not in the
     middle of the screen; given its screen, pywebview places it in the middle itself."""
@@ -737,12 +740,33 @@ class App:
         if self._wanted_theme == "auto":
             self.theme = "dark" if prefers_dark else "light"
         if not self._ready.is_set():
+            self._fit_window_to_page(width, height)
             self._ready.set()
             return
         # The page was loaded again (the reload of debug, a link): its objects are gone, start() makes them again.
         # WHY a new order at once: the numbers of the new page start at 1 again, the old order waited for the next one.
         self._event_order = _EventOrder(self._queue_event)
         self.call_soon(self._start_again)
+
+    def _fit_window_to_page(self, page_width, page_height):
+        """WHY: on Windows pywebview gives the size to the whole window with its title bar and edges, so the page was
+        about 16 x 39 px smaller than the program asked and its lowest objects were cut; on macOS the size is the size
+        of the page. The window is still hidden here, so it grows by the difference and is centered again unseen."""
+        if sys.platform != "win32" or self._window is None:
+            return
+        width, height = self._size
+        extra_width = round(width - page_width)
+        extra_height = round(height - page_height)
+        is_frame = 0 <= extra_width <= _MAX_FRAME_PX and 0 < extra_height <= _MAX_FRAME_PX
+        if not is_frame:
+            return
+        self._window.resize(width + extra_width, height + extra_height)
+        self._page_size = (width, height)
+        screen = _centered_on_windows().get("screen")
+        if screen is not None:
+            left = screen.x + (screen.width - width - extra_width) // 2
+            top = screen.y + (screen.height - height - extra_height) // 2
+            self._window.move(max(left, screen.x), max(top, screen.y))
 
     def _give_up_answer_of(self, object_id):
         """The page could not make an object: an answer that belongs to it (a Dialog) is None."""

@@ -2954,3 +2954,24 @@ def test_a_smart_table_that_fills_a_row_keeps_the_room_of_its_scroll_buttons(app
     plain = ozdenui.SmartTable(columns=columns)
     widths = [created(app, table)["props"]["style"]["width"] for table in (in_row, asked, in_column, plain)]
     assert widths == ["auto", "50%", "100%", "100%"]
+
+
+def test_on_windows_the_window_grows_by_its_title_bar(monkeypatch):
+    # WHY: pywebview gives the size to the whole window on Windows, so the page was smaller and its lowest objects cut
+    moves = []
+    window = SimpleNamespace(resize=lambda w, h: moves.append(("resize", w, h)), move=lambda x, y: moves.append(("move", x, y)))
+    screen = SimpleNamespace(x=0, y=0, width=1920, height=1080)
+    application = App(lambda page: None, size=(480, 320))
+    application._window = window
+    monkeypatch.setattr(app_module.sys, "platform", "win32")
+    monkeypatch.setattr(app_module, "_centered_on_windows", lambda: {"screen": screen})
+    application._fit_window_to_page(464, 281)
+    assert moves == [("resize", 496, 359), ("move", 712, 360)]
+    assert application._page_size == (480, 320)
+    moves.clear()
+    application._fit_window_to_page(480, 320)  # the page has its size: nothing changes
+    application._fit_window_to_page(300, 200)  # far smaller: not a title bar
+    assert moves == []
+    monkeypatch.setattr(app_module.sys, "platform", "darwin")
+    application._fit_window_to_page(464, 281)
+    assert moves == []
