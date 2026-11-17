@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bug7a/ozdenui-python/main/images/logo-dark.png">
+    <img src="https://raw.githubusercontent.com/bug7a/ozdenui-python/main/images/logo.png" width="362" alt="OzdenUI for Python">
+  </picture>
+</p>
+
 # OzdenUI
 
 A small, modern window of its own in Python, made of [basic.js](https://bug7a.github.io/basic.js/) objects and components.

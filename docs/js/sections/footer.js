@@ -76,7 +76,6 @@ FooterSection.links = function () {
     const links = [
         { text: T.navBasicJs, url: CONFIG.basicjsURL },
         { text: T.navHandbook, url: SiteApp.handbookAddress(), sameTab: 1 },
-        { text: T.navComponents, url: CONFIG.componentsURL },
         { text: "pywebview", url: CONFIG.pywebviewURL },
     ];
 

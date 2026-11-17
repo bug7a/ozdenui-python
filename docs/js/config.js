@@ -21,6 +21,7 @@ SPDX-License-Identifier: Apache-2.0
 const CONFIG = {
 
     // *** BRAND:
+    familySelf: "python", // this site in the strip of the family (js/sections/family.js)
     brandName: "OzdenUI",
     logoFile: "assets/ozdenui-python-dark.svg", // the logo of OzdenUI FOR PYTHON (362 x 130), its version for the dark bar
 
