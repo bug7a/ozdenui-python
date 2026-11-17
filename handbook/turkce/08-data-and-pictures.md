@@ -103,7 +103,7 @@ Görünüm, okuyan kişi yukarı kaydırana kadar son satırı izler. Bir metin 
 | `MarkdownView(text="# Bir rapor\n\nBirkaç **kalın** kelime")` | `view.append_text(piece)` sona ekler: bir yapay zekânın geldikçe yazdığı cevap; `view.load_file("notlar.md")` |
 | `JsonView(value=data, height=400, on_select=fn)` | her değer, bir milyon öğe de; bir tıklama yolunu söyler: `view.selected_path_text` (`users[0].name`), `view.selected_value` |
 | `JsonEditor(value=rows, height=360, on_change=fn)` | bir tabloda yazılan JSON listesi ya da sözlüğü; `on_change(editor, value)` değerin bütününü alır, `editor.value` onu sorar; `JsonEditor.open(value=settings, on_apply=fn)`: Cancel ve Apply düğmeli bir pencerede |
-| `CodeEditor(value="x = 1", language="python", height=300, on_change=fn)` | `editor.value`; Python, JavaScript, JSON, HTML, CSS, SQL, Bash |
+| `CodeEditor(value="x = 1", language="python", height=300, on_change=fn)` | `editor.value`; Python, JavaScript, JSON, HTML, CSS, SQL, Bash, Go, Ruby |
 | `ChatView(empty_text="Bir şey sorun", on_send=answer)` | bir yapay zekâyla konuşma: `on_send(chat, text)`; bir cevap Markdown'dır: `key = chat.add_message(role="assistant")`, sonra `chat.append_text(key, piece)`; `chat.busy = True` noktaları ve Durdur'u gösterir (`on_stop`) |
 | `WebView(html=figure.to_html(), height=400)` | bir web sayfası ya da betikleriyle bir HTML metni: bir plotly grafiği, bir folium haritası, bir pandas tablosu (`df.to_html()`); `view.load("https://...")`, `on_message(view, data)` |
 

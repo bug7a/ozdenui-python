@@ -237,7 +237,7 @@ component can change it: `field.unit_text = "kg"`.
 - **`ToolBar`**: the row of buttons under the menus. An icon is a name of `ToolBar.ICONS` or your own SVG text; `"-"` is a line, `" "`
   sends the next ones to the right end, `toggle=True` and `group="align"` stay pressed, `items` opens a menu. What does not fit goes
   into a "..." menu and comes back when there is room. A key that is also in a `MenuBar` runs once.
-- **`CodeEditor`**: Python, JavaScript, JSON, HTML, CSS, SQL and Bash; only the lines that are seen are drawn. Typing is
+- **`CodeEditor`**: Python, JavaScript, JSON, HTML, CSS, SQL, Bash, Go and Ruby; only the lines that are seen are drawn. Typing is
   the text box of the web view, so undo, selection and the input of every language work.
 - **`framed=False`** takes the frame of a component: no border and no rounded corners on its box, for one that fills the
   room between two bars (a `LogView`, a `CodeEditor`, an `ImageView`, a `Canvas`, a `JsonEditor`). It is

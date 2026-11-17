@@ -76,6 +76,17 @@ def every(milliseconds, task):
     return current_app().every(milliseconds, task)
 
 
+def _centered_on_windows():
+    """WHY: on Windows a window made hidden and shown later opened at the place Windows gives (208, 208), not in the
+    middle of the screen; given its screen, pywebview places it in the middle itself."""
+    if sys.platform != "win32":
+        return {}
+    try:
+        return {"screen": webview.screens[0]}
+    except Exception:  # WHY: a place is not worth a window that does not open
+        return {}
+
+
 def after(milliseconds, task):
     """Runs task() once, after a time. Returns a function that cancels it."""
     return current_app().after(milliseconds, task)
@@ -334,7 +345,8 @@ class App:
         #      5 connections and the page asks for about 50 files: rarely a page needed 5 s, and rarely it never finished
         #      (seen once in about 50 opens on a busy Mac). The disk has no queue.
         self._window = webview.create_window(
-            self._title, url=_page_address(), js_api=_PageApi(self), width=width, height=height, hidden=True
+            self._title, url=_page_address(), js_api=_PageApi(self), width=width, height=height, hidden=True,
+            **_centered_on_windows(),
         )
         self._window.events.closed += self._on_window_closed
         webview.start(self._start_app_thread, http_server=False, debug=self._debug)

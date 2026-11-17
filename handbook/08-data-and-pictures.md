@@ -100,7 +100,7 @@ The view follows the last line until the reader scrolls up. A text is never read
 | `MarkdownView(text="# A report\n\nSome **bold** words")` | `view.append_text(piece)` adds to the end: the answer of an AI as it comes; `view.load_file("notes.md")` |
 | `JsonView(value=data, height=400, on_select=fn)` | any value, a million items too; a click tells the path: `view.selected_path_text` (`users[0].name`), `view.selected_value` |
 | `JsonEditor(value=rows, height=360, on_change=fn)` | a list or a dict of JSON written in a table; `on_change(editor, value)` gets the whole value, `editor.value` asks for it; `JsonEditor.open(value=settings, on_apply=fn)`: in a window with Cancel and Apply |
-| `CodeEditor(value="x = 1", language="python", height=300, on_change=fn)` | `editor.value`; Python, JavaScript, JSON, HTML, CSS, SQL, Bash |
+| `CodeEditor(value="x = 1", language="python", height=300, on_change=fn)` | `editor.value`; Python, JavaScript, JSON, HTML, CSS, SQL, Bash, Go, Ruby |
 | `ChatView(empty_text="Ask something", on_send=answer)` | a conversation with an AI: `on_send(chat, text)`; an answer is Markdown: `key = chat.add_message(role="assistant")`, then `chat.append_text(key, piece)`; `chat.busy = True` shows the dots and Stop (`on_stop`) |
 | `WebView(html=figure.to_html(), height=400)` | a web page or an HTML text with its scripts: a plotly chart, a folium map, a pandas table (`df.to_html()`); `view.load("https://...")`, `on_message(view, data)` |
 
