@@ -17,6 +17,27 @@ Only Python: no JavaScript, no HTML, no browser tab, no server. Your Python code
 
 The window above is [examples/gallery-styled.py](https://github.com/bug7a/ozdenui-python/blob/main/examples/gallery-styled.py), the components of the kit in one window.
 
+## Why OzdenUI
+
+Made for people who know Python and want a desktop window that looks modern: a small tool, a school project, the
+panel of a script.
+
+- **Only Python.** The window is made of Python objects: no HTML, CSS or JavaScript to learn, no server, no port, no
+  browser tab.
+- **A modern look from the first line.** 53 components of the [OzdenUI kit](https://bug7a.github.io/js-components/) have a
+  Python class: buttons, fields, lists, a table of 100000 rows, charts, a date picker, a chat, a JSON editor, a canvas.
+  A dark window is one word: `theme="dark"`.
+- **Code that reads like the window.** `with` blocks for the groups, so the shape of the code is the shape of the window.
+  The events run one after the other in one thread: no locks. An error points to your line.
+- **Small and offline.** The package carries basic.js and its components (about 3 MB), and the window is the web view of
+  the system. A click reaches your Python function and comes back on the screen in about 3 ms; the window shows in about
+  half a second.
+- **Easy to learn, with an AI assistant too.** A handbook of ten short chapters in English and Turkish, every program in
+  it run by the tests. `python -m ozdenui agents` teaches your assistant the package, and `python -m ozdenui look` lets
+  it see the window it made.
+- **Tested in real windows.** At every push every example is played in its window on Windows, macOS and Linux.
+  Open source, Apache 2.0.
+
 ```python
 from ozdenui import App, HGroup, Label, SmartButton, VGroup
 
@@ -75,7 +96,7 @@ checked there too: Ubuntu 24.04 with the GTK web view of the system (WebKitGTK);
 
 ## How it works
 
-- The window is the web view of the system (WebKit on macOS, WebView2 on Windows), opened by pywebview. The page in
+- The window is the web view of the system (WebKit on macOS, WebView2 on Windows, WebKitGTK on Linux), opened by pywebview. The page in
   it holds basic.js and its components; the package carries them (about 3 MB, no internet needed).
 - Your code runs in Python. Every object is a small Python object that sends commands to the page; all the commands
   of a function (start, an event, a timer) go together, in one call.

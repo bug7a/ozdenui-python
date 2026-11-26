@@ -48,7 +48,7 @@ const CONFIG = {
     // *** FACTS: (measured on a Mac, 2026-11-03; ozdenui-python/plan.md)
     // WHY \u00A0: a number and its unit stay on one line
     // the classes of ozdenui that are components of the kit; the names of web/components.js (88)
-    componentClasses: 54,
+    componentClasses: 53,
     componentCount: 88,
     // basic.js and its components in the package (ozdenui/web), the number of the README
     installSize: "3\u00A0MB",
