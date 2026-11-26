@@ -1912,6 +1912,16 @@ def test_the_focus_is_left_alone_on_other_systems_and_on_a_late_page(app, monkey
     assert late_app._window.scripts == [] and late_app._window.shown == 1, "a page that is not ready is not asked"
 
 
+def test_the_window_is_not_hidden_any_more_when_it_is_shown(app):
+    """WHY: on Linux (GTK) pywebview hid a window made with hidden=True again right after show() while that flag was on:
+    no window came, and the page never drew a frame (a SmartTable showed no rows)."""
+    hidden_at_show = []
+    app._window.hidden = True
+    app._window.show = lambda: hidden_at_show.append(app._window.hidden)
+    app._show_window()
+    assert hidden_at_show == [False]
+
+
 def test_a_json_view_sends_any_value_as_the_page_can_show_it(app):
     class Thing:
         def __str__(self):

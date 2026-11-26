@@ -90,10 +90,10 @@ def snapshot_window(app, path, on_done):
     """A picture of the page in the window. on_done(error or None) is called when it is written.
 
     WHY WKWebView on a Mac: it draws its own page, so no screen recording permission is needed (screencapture needs
-    one). On Windows: a picture of that part of the screen (Pillow), for a computer with nothing else on its screen
-    (a test machine). WHY no picture with another engine on a Mac: that part of the screen showed the other windows.
+    one). On Windows and Linux: a picture of that part of the screen (Pillow), for a computer with nothing else on its
+    screen (a test machine). WHY no picture with another engine on a Mac: that part of the screen showed the other windows.
     """
-    if sys.platform == "win32":
+    if sys.platform != "darwin":
         _snapshot_screen(app, path, on_done)
         return
     if os.environ.get("PYWEBVIEW_GUI"):

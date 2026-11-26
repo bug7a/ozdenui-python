@@ -561,6 +561,10 @@ class App:
         self._is_shown = True
         if sys.platform == "win32" and self._ready.is_set():
             self._keep_focus_when_shown()
+        # WHY: on Linux (GTK) pywebview hides a window made with hidden=True again right after show() while that flag is
+        #      on (it runs Gtk.Application, so gtk.main_level() is 0): no window came, and the page stayed hidden, so
+        #      requestAnimationFrame and ResizeObserver never ran (a SmartTable showed no rows).
+        self._window.hidden = False
         self._window.show()
         self._mark("shown")
         if _look:
