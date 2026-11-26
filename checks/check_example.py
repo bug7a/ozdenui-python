@@ -19,6 +19,7 @@ SPDX-License-Identifier: Apache-2.0
 import datetime
 import json
 import os
+import re
 import sys
 import tempfile
 import threading
@@ -1255,6 +1256,14 @@ PLAYS["gallery-styled"] = play_gallery  # WHY: the same page, only some looks an
 
 # *** RUN:
 
+def expect_a_dark_ground(p):
+    """A dark window has a dark ground. WHY: 14 examples gave their page a light color in every theme, so their titles
+    were white on light gray in a dark window (fixed in 0.1.6)."""
+    color = p.js("getComputedStyle(document.body).backgroundColor", "the ground of the page")  # page.color is on the body
+    numbers = [int(number) for number in re.findall(r"\d+", str(color))[:3]]
+    p.expect(len(numbers) == 3 and sum(numbers) / 3 < 128, f"the ground of the page in a dark window: {color}")
+
+
 def main():
     name = sys.argv[1]
     picture_file = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -1271,6 +1280,8 @@ def main():
         try:
             player.js(HELPERS_JS)
             time.sleep(STEP_SECONDS)
+            if theme == "dark":
+                expect_a_dark_ground(player)
             PLAYS[name](player)
         except Exception:
             player.problems.append(traceback.format_exc(limit=3))

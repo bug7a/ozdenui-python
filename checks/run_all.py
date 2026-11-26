@@ -24,7 +24,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 EXAMPLES = ["basics", "calculator", "counter", "greeting", "gallery", "file_tool", "csv_viewer", "todo", "settings", "dialogs", "clock", "game", "image_viewer", "job_log",
             "editor", "markdown_editor", "json_viewer", "json_editor", "photos", "paint", "form", "charts", "files", "minimal_theme", "minimal_accent", "chat",
             "gallery-styled"]
-DARK_EXAMPLES = ["gallery", "json_editor", "minimal_theme", "minimal_accent", "chat", "gallery-styled"]
+# WHY so many: 14 examples gave their page a light ground in a dark window too (until 0.1.6); a dark run checks the
+#     ground of the page (check_example.expect_a_dark_ground)
+DARK_EXAMPLES = ["gallery", "json_editor", "minimal_theme", "minimal_accent", "chat", "gallery-styled", "basics", "calculator",
+                 "charts", "counter", "csv_viewer", "dialogs", "file_tool", "files", "form", "greeting", "settings", "todo",
+                 "image_viewer", "photos"]
 CHECK_TIMEOUT_SECONDS = 120
 
 
