@@ -30,6 +30,7 @@ import time
 import traceback
 
 import webview
+from webview.errors import WebViewException
 
 from . import values as _values
 
@@ -48,6 +49,9 @@ _DARK_PAGE_COLOR = "#1C1C1B"
 _EARLY_PAGE_COLOR_PREFIX = "ozdenui-page-color:"  # window.name of a page loaded again for another theme (bridge.js)
 _RELOAD_DELAY_MS = 50  # the page of set_theme() loads itself again this much after the script that asks it
 _WEBVIEW2_ADDRESS = "https://developer.microsoft.com/microsoft-edge/webview2/"
+_LINUX_HINT = ("On Linux the window is the GTK web view of the system: sudo apt install python3-gi python3-gi-cairo "
+               "gir1.2-gtk-3.0 gir1.2-webkit2-4.1 (Debian, Ubuntu), then a virtual environment that sees them: "
+               "python3 -m venv --system-site-packages .venv")
 _current = None
 _look = None  # python -m ozdenui look: {"theme", "on_shown"} (_look.py), else None
 
@@ -352,7 +356,13 @@ class App:
             **_centered_on_windows(),
         )
         self._window.events.closed += self._on_window_closed
-        webview.start(self._start_app_thread, http_server=False, debug=self._debug)
+        try:
+            webview.start(self._start_app_thread, http_server=False, debug=self._debug)
+        except WebViewException as error:
+            # WHY: on Linux pywebview names no package when it finds no web view; a pip install does not bring GTK
+            if not sys.platform.startswith("linux"):
+                raise
+            raise WebViewException(f"{error} {_LINUX_HINT}") from error
 
     def close(self):
         """Closes the window (from any thread)."""

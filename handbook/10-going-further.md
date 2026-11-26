@@ -73,8 +73,8 @@ page at once. A long job is better in `run_in_background()` (chapter 4).
   of a table in Python; the numbers of a `GraphBox` or a `Stepper` take a format text.
 - Fifteen components change their theme while they are on the page; the others take their look when they are made
   (chapter 7).
-- It is made on macOS. The tests of the package run on Windows too (it needs the WebView2 runtime); Linux needs the GTK
-  or Qt web view of pywebview.
+- It is made on macOS. The tests of the package run on Windows and Linux too (Windows needs the WebView2 runtime,
+  Linux the GTK web view of the system: chapter 1); the Qt web view on Linux has not been tried.
 - No browser or Jupyter mode yet.
 - A program made into one file with PyInstaller needs the files of the package (`--collect-data ozdenui`); this has
   not been tried yet.

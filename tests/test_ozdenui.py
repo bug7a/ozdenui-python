@@ -1912,6 +1912,32 @@ def test_the_focus_is_left_alone_on_other_systems_and_on_a_late_page(app, monkey
     assert late_app._window.scripts == [] and late_app._window.shown == 1, "a page that is not ready is not asked"
 
 
+class _Handlers(list):
+    """The events of a window of pywebview: handlers are added with +=."""
+
+    def __iadd__(self, handler):
+        self.append(handler)
+        return self
+
+
+def test_on_linux_a_missing_web_view_names_its_packages(monkeypatch):
+    """WHY: on Linux pip does not bring the GTK web view, and pywebview's message names no package."""
+    def no_web_view(*args, **kwargs):
+        raise app_module.WebViewException("You must have either QT or GTK with Python extensions installed.")
+
+    window = SimpleNamespace(events=SimpleNamespace(closed=_Handlers()))
+    monkeypatch.setattr(app_module.webview, "create_window", lambda *args, **kwargs: window)
+    monkeypatch.setattr(app_module.webview, "start", no_web_view)
+    monkeypatch.setattr(app_module, "_current", None)
+    monkeypatch.setattr(app_module.sys, "platform", "linux")
+    with pytest.raises(app_module.WebViewException, match="gir1.2-webkit2-4.1"):
+        App(lambda page: None).run()
+    monkeypatch.setattr(app_module.sys, "platform", "darwin")
+    with pytest.raises(app_module.WebViewException) as raised:
+        App(lambda page: None).run()
+    assert "apt install" not in str(raised.value), "other systems keep the message of pywebview"
+
+
 def test_the_window_is_not_hidden_any_more_when_it_is_shown(app):
     """WHY: on Linux (GTK) pywebview hid a window made with hidden=True again right after show() while that flag was on:
     no window came, and the page never drew a frame (a SmartTable showed no rows)."""

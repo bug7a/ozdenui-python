@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bug7a/ozdenui-python/main/images/logo-dark.png">
-    <img src="https://raw.githubusercontent.com/bug7a/ozdenui-python/main/images/logo.png" width="362" alt="OzdenUI for Python">
+    <img src="https://raw.githubusercontent.com/bug7a/ozdenui-python/main/images/logo.png" width="380" alt="OzdenUI for Python">
   </picture>
 </p>
 
@@ -37,10 +37,18 @@ App(start, title="Counter", size=(400, 320)).run()
 pip install ozdenui
 ```
 
-v0.1, experimental: tested on macOS and Windows; Linux is not tested yet.
+v0.1, experimental: tested on macOS, Windows and Linux.
 
 On a Mac with the Python of the system, upgrade pip first (`python3 -m pip install --upgrade pip`): its old pip tries to
 build a part of pywebview from source and fails.
+
+On Linux the window is the GTK web view of the system. On Debian or Ubuntu:
+
+```
+sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.1
+python3 -m venv --system-site-packages .venv    # a virtual environment that sees them
+.venv/bin/pip install ozdenui
+```
 
 **With an AI assistant** (Claude Code, Codex, Cursor, Copilot...): OzdenUI is new, so an assistant does not know it
 yet. One command writes its rules (how a program is made, the layout, the events, the components, the mistakes to
@@ -62,8 +70,8 @@ component, going further). Every program in it is run by the tests. In Turkish:
 
 **Status: v0.1, experimental.** Tested on macOS (Python 3.9, pywebview 6.2), in the web view of the system (WebKit) and in
 Chromium, the engine of WebView2. Windows itself is checked by the tests of this repository (GitHub Actions); it needs the
-[WebView2 runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which most Windows computers have. Linux needs
-the GTK or Qt web view of [pywebview](https://pywebview.flowrl.com/).
+[WebView2 runtime](https://developer.microsoft.com/microsoft-edge/webview2/), which most Windows computers have. Linux is
+checked there too: Ubuntu 24.04 with the GTK web view of the system (WebKitGTK); its Qt web view has not been tried.
 
 ## How it works
 
@@ -421,8 +429,8 @@ in one color: `App(style="minimal", accent="#2A78D6")`).
 
 ## Limits of v0.1
 
-- Tested on macOS and Windows (the tests of this repository run every example in its real window, Python 3.9 to
-  3.15). Linux is not tested yet.
+- Tested on macOS, Windows and Linux (the tests of this repository run every example in its real window: Python 3.9 to
+  3.15 on macOS and Windows, the Python of Ubuntu 24.04 with GTK on Linux). On Linux only GTK was tried, not Qt.
 - A callback that must answer at once can not be a Python function, because the answer comes later: the
   `on_before_click` of a SmartButton, an `on_close` of Tabs that returns `False`, the `validate` of a TagInput, and functions
   that build objects inside a component (`createItemView` of a list, `createCellView`). Format the values of a SmartTable in Python;

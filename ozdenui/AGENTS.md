@@ -149,4 +149,5 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 - A check that plays the program from code (calls its functions after `start()`) must not reach a `Dialog`: it waits
   for a person. Give the function a way around it in the check.
 - `App(start, debug=True)` gives the developer tools of the web view (right click > Inspect).
-- macOS and Windows (WebView2). No browser or Jupyter mode.
+- macOS, Windows (WebView2) and Linux (the GTK web view of the system: `python3-gi`, `gir1.2-webkit2-4.1`, and a venv
+  made with `--system-site-packages`). No browser or Jupyter mode.
