@@ -56,7 +56,8 @@ def plot_png(phase):
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     view["phase"] = 0.0
     with VGroup(gap=0, align="left top"):
         with HGroup(width="100%", height="auto", gap=8, padding=12, align="left center", shrink=0):

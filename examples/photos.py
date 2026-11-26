@@ -62,7 +62,8 @@ def items_of(pictures):
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     folder = sys.argv[1] if len(sys.argv) > 1 and os.path.isdir(sys.argv[1]) else ""
     view["pictures"] = folder_pictures(folder) if folder else first_pictures()
     with VGroup(gap=0, align="left top"):

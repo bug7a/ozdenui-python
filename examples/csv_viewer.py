@@ -28,7 +28,8 @@ view = {}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=14, padding=30, align="left top"):
         with HGroup(hug=True, gap=14, align="left center"):
             Label(text="CSV viewer", font_size=24, bold=True)

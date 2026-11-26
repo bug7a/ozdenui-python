@@ -4,7 +4,7 @@
 from ozdenui import App, GridGroup, Label, SmartButton, VGroup
 
 PAGE_COLOR = "#F4F5F7"
-SCREEN_COLOR = "#FFFFFF"
+SCREEN_COLORS = {"light": "#FFFFFF", "dark": "#232322"}  # by the theme of the window
 ERROR_TEXT = "Error"
 MOST_DIGITS = 12
 KEYS = ["C", "÷", "7", "8", "9", "×", "4", "5", "6", "−", "1", "2", "3", "+", "0", ".", "="]
@@ -16,9 +16,10 @@ view = {"typed": "0", "left": None, "operation": None, "is_new": True}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=10, padding=16, align="left top"):
-        view["screen"] = Label(text="0", width="100%", font_size=34, bold=True, text_align="right", color=SCREEN_COLOR, round=10,
+        view["screen"] = Label(text="0", width="100%", font_size=34, bold=True, text_align="right", color=SCREEN_COLORS[page.app.theme], round=10,
                                padding=[14, 8], shrink=0)
         with GridGroup(columns=4, gap=8) as grid:
             for key in KEYS:

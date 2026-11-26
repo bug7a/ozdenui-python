@@ -29,7 +29,7 @@ App(start, title="Hello", size=(360, 200)).run()
 | 7 | [Looks](07-looks.md) | dark windows, the minimal look in your color, the colors of one component |
 | 8 | [Data and pictures](08-data-and-pictures.md) | charts, big tables, plots, logs, Markdown, JSON, code |
 | 9 | [Your own component](09-your-own-component.md) | a class of yours made of objects, shared as a module |
-| 10 | [Going further](10-going-further.md) | basic.js from Python, speed, threads, limits, finding a mistake |
+| 10 | [Going further](10-going-further.md) | basic.js from Python, speed, threads, making an app, limits, finding a mistake |
 
 Read 1 to 4 in order: they are the whole idea. Then take the chapters you need.
 

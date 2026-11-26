@@ -30,7 +30,7 @@ from .components import (Accordion, Canvas, ChatView, CheckBox, CodeEditor, Colo
                          Tooltip, TreeView, UrlField, WebView, picture_address)
 from .objects import Box, Button, Component, GridGroup, HGroup, Icon, Input, Label, VGroup
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 __all__ = [
     "App", "WindowClosed", "every", "after", "call_soon", "run_in_background", "open_file", "save_file", "choose_folder",
     "Box", "VGroup", "HGroup", "GridGroup", "ScrollArea", "Label", "Button", "Input", "Icon", "Component",

@@ -21,7 +21,8 @@ def live_value(tick):
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with ScrollArea(align="center top", gap=16, padding=24):
         Label(text="Charts", font_size=24, bold=True)
         with HGroup(width="100%", height="auto", align="center top", gap=16, wrap=True):

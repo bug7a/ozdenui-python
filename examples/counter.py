@@ -8,7 +8,8 @@ TEXT_SOFT = "#5A6270"
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=16, padding=40):
         Label(text="Counter", font_size=22, text_color=TEXT_SOFT)
         count = Label(text="0", font_size=64, bold=True)

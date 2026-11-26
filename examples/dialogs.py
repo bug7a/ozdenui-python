@@ -10,7 +10,8 @@ view = {}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=16, padding=36, align="left top"):
         Label(text="Dialogs", font_size=24, bold=True)
         with HGroup(hug=True, gap=8):

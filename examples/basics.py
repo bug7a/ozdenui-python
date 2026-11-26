@@ -14,7 +14,8 @@ view = {"color_number": 0}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
 
     # An object has a place: left, top, width, height. The objects of a "with" block are inside the Box: their place is in it.
     with Box(20, 20, 320, 110, color=CARD_COLORS[0], round=12) as view["card"]:

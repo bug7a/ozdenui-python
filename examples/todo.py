@@ -18,7 +18,8 @@ class TodoApp:
         self.next_number = itertools.count(1)
 
     def start(self, page):
-        page.color = PAGE_COLOR
+        if page.app.theme == "light":  # a dark window has its own ground
+            page.color = PAGE_COLOR
         with VGroup(gap=14, padding=36, align="left top"):
             Label(text="To do", font_size=24, bold=True)
             with HGroup(hug=True, gap=8, align="left bottom"):

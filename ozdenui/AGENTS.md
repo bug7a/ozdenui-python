@@ -18,13 +18,15 @@ CSS file and no JavaScript to write. Everything below is the whole way of workin
 from ozdenui import App, HGroup, Label, ScrollArea, SmartButton, TextField, Toast, VGroup
 
 PAGE_COLOR = "#F4F5F7"
+BAR_COLORS = {"light": "#FFFFFF", "dark": "#232322"}  # by the theme of the window
 view = {}                                       # the objects the program changes later
 notes = []                                      # the data of the program is plain Python
 
 def start(page):                                # runs when the window is ready: make the objects here
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":               # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=0):                         # a group is as large as its box: here the whole window
-        with HGroup(height=52, padding=[16, 0], gap=10, align="left center", color="white"):
+        with HGroup(height=52, padding=[16, 0], gap=10, align="left center", color=BAR_COLORS[page.app.theme]):
             view["name"] = TextField(placeholder="A new note", width=260, on_enter=add_note)
             SmartButton(text="Add", tone="cyan", on_click=add_note)
         with ScrollArea(padding=16, gap=10, align="left top") as view["notes"]:   # takes the room that is left
@@ -149,5 +151,7 @@ Each is a class of `ozdenui`; its state is read from Python (`field.text`, `sele
 - A check that plays the program from code (calls its functions after `start()`) must not reach a `Dialog`: it waits
   for a person. Give the function a way around it in the check.
 - `App(start, debug=True)` gives the developer tools of the web view (right click > Inspect).
+- An app for people without Python: `pyinstaller --onefile --windowed app.py` (Windows), `--windowed` (macOS),
+  `--onefile` (Linux), built on that system; the package brings the page of the window by itself (no `--collect-data`).
 - macOS, Windows (WebView2) and Linux (the GTK web view of the system: `python3-gi`, `gir1.2-webkit2-4.1`, and a venv
   made with `--system-site-packages`). No browser or Jupyter mode.

@@ -28,7 +28,7 @@ App(start, title="Merhaba", size=(360, 200)).run()
 | 7 | [Görünüm](07-looks.md) | koyu pencereler, sizin renginizde minimal görünüm, tek bir bileşenin renkleri |
 | 8 | [Veri ve resimler](08-data-and-pictures.md) | grafikler, büyük tablolar, çizimler, kayıtlar, Markdown, JSON, kod |
 | 9 | [Kendi bileşeniniz](09-your-own-component.md) | nesnelerden yapılmış kendi sınıfınız, bir modül olarak paylaşmak |
-| 10 | [Daha ileri](10-going-further.md) | Python'dan basic.js, hız, iş parçacıkları, sınırlar, hata bulmak |
+| 10 | [Daha ileri](10-going-further.md) | Python'dan basic.js, hız, iş parçacıkları, uygulama yapmak, sınırlar, hata bulmak |
 
 1'den 4'e kadar sırayla okuyun: bütün fikir onlarda. Sonra gereken bölümleri seçin.
 

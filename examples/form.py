@@ -7,7 +7,7 @@ from ozdenui import (App, ColorPicker, DatePicker, EmailField, HGroup, Label, Nu
                      SmartButton, Stepper, TextField, TimePicker, Toast, VGroup)
 
 PAGE_COLOR = "#F4F5F7"
-CARD_COLOR = "#FFFFFF"
+CARD_COLORS = {"light": "#FFFFFF", "dark": "#232322"}  # by the theme of the window
 TEXT_SOFT = "#5A6270"
 FORM_WIDTH = 520
 FIRST_COLOR = "#3871E0"
@@ -25,11 +25,12 @@ def titled(title):
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     next_week = datetime.date.today() + datetime.timedelta(days=7)
     with ScrollArea(align="center top", gap=16, padding=30):
         Label(text="A reservation", font_size=24, bold=True)
-        with VGroup(width=FORM_WIDTH, height="auto", align="left top", gap=14, padding=20, color=CARD_COLOR, round=12):
+        with VGroup(width=FORM_WIDTH, height="auto", align="left top", gap=14, padding=20, color=CARD_COLORS[page.app.theme], round=12):
             view["name"] = TextField(title_text="Name", placeholder="Ada", required=True, width="100%", on_enter=send)
             view["email"] = EmailField(title_text="E-mail", required=True, width="100%", on_enter=send)
             view["password"] = PasswordField(title_text="Password", min_length=6, width="100%")

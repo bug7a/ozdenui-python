@@ -5,7 +5,7 @@ from ozdenui import (App, CheckBox, HGroup, Label, RadioButton, SelectBox, Slide
                      Toast, Toggle, VGroup)
 
 PAGE_COLOR = "#F4F5F7"
-CARD_COLOR = "#FFFFFF"
+CARD_COLORS = {"light": "#FFFFFF", "dark": "#232322"}  # by the theme of the window
 TEXT_SOFT = "#5A6270"
 FORM_WIDTH = 460
 PANEL_HEIGHT = 250
@@ -14,10 +14,11 @@ view = {}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=16, padding=30, align="left top"):
         Label(text="Settings", font_size=24, bold=True)
-        with VGroup(width=FORM_WIDTH + 40, height="auto", align="left top", gap=16, padding=20, color=CARD_COLOR,
+        with VGroup(width=FORM_WIDTH + 40, height="auto", align="left top", gap=16, padding=20, color=CARD_COLORS[page.app.theme],
                     round=12):
             tabs = Tabs(tabs=["General", "Notifications", "Sound"], panel_height=PANEL_HEIGHT)
             with tabs.panel("General"):

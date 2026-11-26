@@ -47,7 +47,8 @@ def size_text(size):
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     view["root"] = sys.argv[1] if len(sys.argv) > 1 and os.path.isdir(sys.argv[1]) else ROOT
     with VGroup(gap=0, align="left top"):
         with Box(fill=True, color="transparent"):

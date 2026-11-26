@@ -9,7 +9,8 @@ view = {}
 
 
 def start(page):
-    page.color = PAGE_COLOR
+    if page.app.theme == "light":  # a dark window has its own ground
+        page.color = PAGE_COLOR
     with VGroup(gap=14, padding=40):
         view["name"] = TextField(title_text="What is your name?", placeholder="Ada", width=300, on_enter=greet)
         SmartButton(text="Greet", tone="cyan", on_click=greet)

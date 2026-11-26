@@ -65,6 +65,27 @@ page at once. A long job is better in `run_in_background()` (chapter 4).
 | a job of `run_in_background()` | yes | yes | no |
 | a thread of your own | through `call_soon(fn)` | | |
 
+## Making an app
+
+A program can go to people who have no Python: [PyInstaller](https://pyinstaller.org) makes it an app. The package
+tells PyInstaller to take the page of the window (basic.js, the components, the fonts) into it, so no flag is needed
+for it:
+
+```
+pip install pyinstaller
+pyinstaller --onefile --windowed app.py    # Windows: dist/app.exe, no console next to the window
+pyinstaller --windowed app.py              # macOS: dist/app.app
+pyinstaller --onefile app.py               # Linux: dist/app
+```
+
+- Build it on the system it is for: a Windows app on Windows, a Mac app on a Mac. Tried with a small program: about
+  14 MB on Windows, 17 MB on a Mac, 60 MB on Linux (GTK and WebKit go into it).
+- The computer of the user still needs the web view of its system: WebView2 on Windows (most computers have it), the
+  GTK web view on Linux (chapter 1). A Mac has its own.
+- A new app from a maker the system does not know can get a warning the first time (SmartScreen on Windows, Gatekeeper
+  on a Mac); signing the app removes it.
+- Files of your own that the program reads (pictures, data) go in with `--add-data`: see the manual of PyInstaller.
+
 ## Limits of v0.1
 
 - A callback that must answer at once can not be a Python function, because the answer comes later: the
@@ -76,8 +97,6 @@ page at once. A long job is better in `run_in_background()` (chapter 4).
 - It is made on macOS. The tests of the package run on Windows and Linux too (Windows needs the WebView2 runtime,
   Linux the GTK web view of the system: chapter 1); the Qt web view on Linux has not been tried.
 - No browser or Jupyter mode yet.
-- A program made into one file with PyInstaller needs the files of the package (`--collect-data ozdenui`); this has
-  not been tried yet.
 
 ## With an AI assistant
 

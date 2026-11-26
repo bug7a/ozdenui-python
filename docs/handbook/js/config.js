@@ -23,7 +23,7 @@ const CONFIG = {
 
     // *** BRAND:
     brandName: "OzdenUI",
-    version: "0.1.5", // the version of the package (js/config.js of the page of the package has it too)
+    version: "0.1.6", // the version of the package (js/config.js of the page of the package has it too)
 
     // *** PATHS:
     // The root of the site (the page of the package) from the address of this page: it is always <site>/handbook/.

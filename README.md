@@ -433,6 +433,20 @@ on_click=open_picture)`. The app has them too (`app.every(...)`).
 **A dialog in `start()`** works: the window is shown first. If the page is loaded again (the reload of
 `debug=True`), the timers stop and `start()` runs again.
 
+## Making an app
+
+[PyInstaller](https://pyinstaller.org) makes a program an app for people who have no Python. The package tells it to
+take the page of the window, so no flag is needed for it:
+
+```
+pyinstaller --onefile --windowed app.py    # Windows: dist/app.exe
+pyinstaller --windowed app.py              # macOS: dist/app.app
+pyinstaller --onefile app.py               # Linux: dist/app
+```
+
+Build it on the system it is for; the computer of the user needs the web view of its system (WebView2 on Windows, the
+GTK web view on Linux). More: [the handbook, chapter 10](https://github.com/bug7a/ozdenui-python/blob/main/handbook/10-going-further.md#making-an-app).
+
 ## Examples
 
 In the `examples/` folder of the source: `basics` (a Box, an Icon, a Label, an Input and a Button, each in a place of its own), `calculator` (a GridGroup), `counter`,

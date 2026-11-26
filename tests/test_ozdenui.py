@@ -3011,3 +3011,21 @@ def test_on_windows_the_window_grows_by_its_title_bar(monkeypatch):
     monkeypatch.setattr(app_module.sys, "platform", "darwin")
     application._fit_window_to_page(464, 281)
     assert moves == []
+
+
+def test_pyinstaller_takes_the_page_of_the_window(monkeypatch):
+    """pyinstaller app.py takes web/ into the app by the hook of the package: without it the window stayed empty."""
+    import runpy
+    from importlib.metadata import entry_points
+
+    from ozdenui.__pyinstaller import get_hook_dirs
+    points = entry_points()
+    group = points.select(group="pyinstaller40") if hasattr(points, "select") else points.get("pyinstaller40", [])
+    assert "ozdenui.__pyinstaller:get_hook_dirs" in [point.value for point in group if point.name == "hook-dirs"]
+    asked = []
+    hooks = SimpleNamespace(collect_data_files=lambda package: asked.append(package) or [("web/index.html", "ozdenui/web")])
+    monkeypatch.setitem(sys.modules, "PyInstaller", SimpleNamespace())
+    monkeypatch.setitem(sys.modules, "PyInstaller.utils", SimpleNamespace(hooks=hooks))
+    monkeypatch.setitem(sys.modules, "PyInstaller.utils.hooks", hooks)
+    found = runpy.run_path(str(Path(get_hook_dirs()[0]) / "hook-ozdenui.py"))
+    assert asked == ["ozdenui"] and found["datas"]

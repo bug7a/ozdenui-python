@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ozdenui"
-version = "0.1.5"
+version = "0.1.6"
 description = "Modern desktop windows in plain Python: the objects and components of basic.js. Only Python, no JavaScript or HTML"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -30,6 +30,10 @@ classifiers = [
     "Programming Language :: Python :: 3.15",
     "Topic :: Software Development :: User Interfaces",
 ]
+
+# WHY: PyInstaller finds the hook of the package here, so "pyinstaller app.py" needs no --collect-data ozdenui
+[project.entry-points.pyinstaller40]
+hook-dirs = "ozdenui.__pyinstaller:get_hook_dirs"
 
 [project.urls]
 Homepage = "https://bug7a.github.io/ozdenui-python/"

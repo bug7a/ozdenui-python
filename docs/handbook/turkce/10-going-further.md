@@ -69,6 +69,27 @@ komutlar sayfaya hemen gider. Uzun bir iş için `run_in_background()` daha iyid
 | bir `run_in_background()` işi | evet | evet | hayır |
 | sizin kendi iş parçacığınız | `call_soon(fn)` ile | | |
 
+## Uygulama yapmak
+
+Bir program, Python'u olmayan kişilere de gidebilir: [PyInstaller](https://pyinstaller.org) onu bir uygulama yapar.
+Paket, pencerenin sayfasını (basic.js, bileşenler, yazı tipleri) içine almasını PyInstaller'a kendisi söyler; bunun
+için bir bayrak gerekmez:
+
+```
+pip install pyinstaller
+pyinstaller --onefile --windowed app.py    # Windows: dist/app.exe, pencerenin yanında konsol yok
+pyinstaller --windowed app.py              # macOS: dist/app.app
+pyinstaller --onefile app.py               # Linux: dist/app
+```
+
+- Uygulamayı hangi sistem içinse onda yapın: Windows uygulamasını Windows'ta, Mac uygulamasını Mac'te. Küçük bir
+  programla denendi: Windows'ta yaklaşık 14 MB, Mac'te 17 MB, Linux'ta 60 MB (GTK ve WebKit içine girer).
+- Kullanıcının bilgisayarında sistemin web görünümü yine gerekir: Windows'ta WebView2 (çoğu bilgisayarda var), Linux'ta
+  GTK web görünümü (1. bölüm). Mac'te kendisi vardır.
+- Sistemin tanımadığı bir yapımcının yeni uygulaması ilk açılışta bir uyarı alabilir (Windows'ta SmartScreen, Mac'te
+  Gatekeeper); uygulamayı imzalamak bu uyarıyı kaldırır.
+- Programın okuduğu kendi dosyalarınız (resimler, veriler) `--add-data` ile girer: PyInstaller'ın kılavuzuna bakın.
+
 ## v0.1'in sınırları
 
 - Hemen cevap vermesi gereken bir callback bir Python fonksiyonu olamaz, çünkü cevap sonra gelir: bir `SmartButton`'ın
@@ -79,8 +100,6 @@ komutlar sayfaya hemen gider. Uzun bir iş için `run_in_background()` daha iyid
 - macOS'ta yapıldı. Paketin testleri Windows'ta ve Linux'ta da çalışır (Windows'ta WebView2 çalışma ortamı, Linux'ta
   sistemin GTK web görünümü gerekir: 1. bölüm); Linux'ta Qt web görünümü denenmedi.
 - Henüz tarayıcı ya da Jupyter kipi yok.
-- PyInstaller ile tek dosya yapılan bir program, paketin dosyalarını ister (`--collect-data ozdenui`); bu henüz
-  denenmedi.
 
 ## Bir yapay zekâ asistanıyla
 
