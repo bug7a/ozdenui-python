@@ -32,14 +32,14 @@ const SITE = {
     TEXT_SOFT: "rgba(0, 0, 0, 0.58)",
     TEXT_FAINT: "rgba(0, 0, 0, 0.4)",
     // WHY the colors of the site of OzdenUI (js/theme.js one folder up), not the blue of the handbook of basic.js: the site
-    //     and its handbook are one place. The accent here is a text (links, the chosen chapter): the green of the juniper
+    //     and its handbook are one place. The accent here is a text (links, the chosen chapter): the blue of the lotus
     //     of the logo, as the small marks of the site on a light ground.
-    ACCENT: "#2E6B4E",
-    ACCENT_SOFT: "#E2EDE6",
-    LINK_LINE: "rgba(46, 107, 78, 0.45)",
-    FLASH: "rgba(46, 107, 78, 0.2)",    // a heading that a link brought into view
-    SELECTION: "rgba(66, 115, 173, 0.3)", // the blue of the logo
-    NOTE_BG: "#EEF4EF",
+    ACCENT: "#3E68AA",
+    ACCENT_SOFT: "#E5ECF7",
+    LINK_LINE: "rgba(62, 104, 170, 0.45)",
+    FLASH: "rgba(62, 104, 170, 0.2)",    // a heading that a link brought into view
+    SELECTION: "rgba(106, 146, 212, 0.3)", // the lotus of the logo
+    NOTE_BG: "#EEF2F9",
     ERROR: "#D64545",
 
     // Kod blokları (koyu)

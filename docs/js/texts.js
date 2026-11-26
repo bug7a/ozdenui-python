@@ -37,7 +37,7 @@ const TEXTS = {
         copyFailed: "The code could not be copied.",
 
         // HERO
-        heroEyebrow: "v{version} · experimental · Python {python}+ · tested\u00A0on\u00A0macOS\u00A0and\u00A0Windows", // WHY \u00A0: on a phone the platforms go to the second line together
+        heroEyebrow: "v{version} · experimental · Python {python}+ · tested\u00A0on\u00A0macOS,\u00A0Windows\u00A0and\u00A0Linux", // WHY \u00A0: on a phone the platforms go to the second line together
         heroTitle: "Modern desktop windows, in\u00A0plain Python", // WHY \u00A0: the line breaks before "in", not after it
         heroLead: "Write the window in Python: boxes, texts, buttons and ready components appear in a small window of its own. Only Python: no JavaScript, no HTML, no browser tab, no server.",
         heroPrimary: "Get started",
@@ -206,7 +206,7 @@ const TEXTS = {
         ],
         startHandbook: "Then the handbook: ten short chapters, from the first window to a component of your own, in English and Turkish. Every program in it runs.",
         readHandbook: "Read the handbook", // the hero and the end of Start: a verb, as the other buttons
-        startNote: "Python {python}+. Tested on macOS and Windows (WebView2); Linux (GTK or Qt) is not tested yet.",
+        startNote: "Python {python}+. Tested on macOS, Windows (WebView2) and Linux (the GTK web view of the system: python3-gi and gir1.2-webkit2-4.1 on Ubuntu).",
 
         // FOOTER
         footerText: "OzdenUI is open source under the {license} license.",
@@ -231,7 +231,7 @@ const TEXTS = {
         copyFailed: "Kod kopyalanamadı.",
 
         // HERO
-        heroEyebrow: "v{version} · deneysel · Python {python}+ · macOS\u00A0ve\u00A0Windows'ta\u00A0denendi",
+        heroEyebrow: "v{version} · deneysel · Python {python}+ · macOS,\u00A0Windows\u00A0ve\u00A0Linux'ta\u00A0denendi",
         heroTitle: "Düz Python ile modern masaüstü pencereleri",
         heroLead: "Pencereyi Python ile yazın: kutular, metinler, düğmeler ve hazır bileşenler kendi küçük penceresinde görünür. Yalnız Python: JavaScript yok, HTML yok, tarayıcı sekmesi ve sunucu yok.",
         heroPrimary: "Başlayın",
@@ -400,7 +400,7 @@ const TEXTS = {
         ],
         startHandbook: "Sonra el kitabı: ilk pencereden kendi bileşeninize on kısa bölüm, İngilizce ve Türkçe. İçindeki her program çalışır.",
         readHandbook: "El kitabını okuyun",
-        startNote: "Python {python}+. macOS'ta ve Windows'ta (WebView2) denendi; Linux (GTK ya da Qt) henüz denenmedi.",
+        startNote: "Python {python}+. macOS'ta, Windows'ta (WebView2) ve Linux'ta (sistemin GTK web görünümü: Ubuntu'da python3-gi ve gir1.2-webkit2-4.1) denendi.",
 
         // FOOTER
         footerText: "OzdenUI, {license} lisansı ile açık kaynaktır.",

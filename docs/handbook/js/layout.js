@@ -82,8 +82,8 @@ Layout.createHeader = function () {
             Layout.logo.elem.style.cursor = "pointer";
             Layout.logo.elem.style.flexShrink = "0";
 
-                // ICON: The logo of OzdenUI FOR PYTHON (362 x 130; the drawing is taller than the words)
-                Layout.imgLogo = Icon({ width: 134, height: 48, color: "transparent" });
+                // ICON: The logo of OzdenUI FOR PYTHON (380 x 130; the drawing is taller than the words)
+                Layout.imgLogo = Icon({ width: 140, height: 48, color: "transparent" });
                 that.load(CONFIG.logoFile);
                 that.elem.title = CONFIG.brandName;
 

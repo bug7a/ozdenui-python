@@ -23,9 +23,9 @@ SPDX-License-Identifier: Apache-2.0
 
 "use strict";
 
-const LOGO_HEIGHT = 76;             // px: the logo in the bar (68 px high): the top of the juniper is out of the window
+const LOGO_HEIGHT = 76;             // px: the logo (its 130 high frame) in the bar (68 px high)
 const LOGO_HEIGHT_MOBILE = 62;      // (a 60 px bar)
-const LOGO_WORDS_MIDDLE = 70 / 130; // the middle of "OzdenUI" in the drawing, from its top (measured)
+const LOGO_WORDS_MIDDLE = 68.5 / 130; // the middle of "OzdenUI" in the drawing, from its top (measured)
 
 // Default values:
 const SiteHeaderDefaults = {
@@ -146,7 +146,7 @@ const SiteHeader = function (params = {}) {
 
             // GROUP: Logo
             // WHY larger than the bar: the words of the logo were small; they stand beside the links (a little higher than
-            //     the middle of the drawing), and the top of the juniper goes out of the window
+            //     the middle of the drawing)
             const logoHeight = L.mobile ? LOGO_HEIGHT_MOBILE : LOGO_HEIGHT;
             const brand = HGroup({ width: "auto", height: "auto", align: "left center", gap: 10 });
             brand.elem.style.cursor = "pointer";

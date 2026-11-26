@@ -23,14 +23,14 @@ const CONFIG = {
 
     // *** BRAND:
     brandName: "OzdenUI",
-    version: "0.1.4", // the version of the package (js/config.js of the page of the package has it too)
+    version: "0.1.5", // the version of the package (js/config.js of the page of the package has it too)
 
     // *** PATHS:
     // The root of the site (the page of the package) from the address of this page: it is always <site>/handbook/.
     // WHY from the address and not a parent path written here: _make-standalone.sh lists a path that leaves the folder
     //     in the code; this one is read from the address, so nothing is listed and the logo comes from the site.
     siteRootURL: new URL(".", location.href).href.replace(/handbook\/$/, ""),
-    logoFile: "", // written below: the logo of OzdenUI FOR PYTHON in assets/ of the site (362 x 130, its version for a light ground)
+    logoFile: "", // written below: the logo of OzdenUI FOR PYTHON in assets/ of the site (380 x 130, its version for a light ground)
     // The chapters (Markdown), relative to this page; a folder for each language
     handbookPath: "./",
     languageFolders: {

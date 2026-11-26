@@ -76,8 +76,8 @@ komutlar sayfaya hemen gider. Uzun bir iş için `run_in_background()` daha iyid
   nesne kuran fonksiyonlar (`createItemView`, `createCellView`). Bir tablonun değerlerini Python'da biçimlendirin;
   bir `GraphBox`'ın ya da bir `Stepper`'ın sayıları bir biçim metni alır.
 - On beş bileşen sayfadayken temasını değiştirebilir; öbürleri görünümlerini yapılırken alır (7. bölüm).
-- macOS'ta yapıldı. Paketin testleri Windows'ta da çalışır (WebView2 çalışma ortamı gerekir); Linux için pywebview'in
-  GTK ya da Qt web görünümü gerekir.
+- macOS'ta yapıldı. Paketin testleri Windows'ta ve Linux'ta da çalışır (Windows'ta WebView2 çalışma ortamı, Linux'ta
+  sistemin GTK web görünümü gerekir: 1. bölüm); Linux'ta Qt web görünümü denenmedi.
 - Henüz tarayıcı ya da Jupyter kipi yok.
 - PyInstaller ile tek dosya yapılan bir program, paketin dosyalarını ister (`--collect-data ozdenui`); bu henüz
   denenmedi.

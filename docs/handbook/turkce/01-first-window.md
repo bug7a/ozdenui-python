@@ -9,7 +9,9 @@ pip install ozdenui
 Python 3.9 ya da daha yenisi gerekir. Pencereyi açan [pywebview](https://pywebview.flowrl.com/)'i de getirir. Mac'te
 sistemin Python'u ile önce pip'i güncelleyin (`python3 -m pip install --upgrade pip`): eski pip, pywebview'in bir
 parçasını kaynaktan derlemeye çalışır ve başaramaz. Windows'ta pencere için WebView2 çalışma ortamı gerekir; çoğu
-bilgisayarda vardır.
+bilgisayarda vardır. Linux'ta pencere, sistemin GTK web görünümüdür: Debian ya da Ubuntu'da `sudo apt install python3-gi
+python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.1`, sonra sanal ortamı onları görecek şekilde kurun:
+`python3 -m venv --system-site-packages .venv`.
 
 ## Sayaçlı bir pencere
 
@@ -46,7 +48,7 @@ Pencere, `start()`'ın ilk çizimi hazır olunca gösterilir; bu yüzden hiç bo
 
 ## Nasıl çalışır
 
-Pencere, sistemin web görünümüdür (Mac'te WebKit, Windows'ta WebView2). İçindeki sayfada basic.js ve bileşenleri
+Pencere, sistemin web görünümüdür (Mac'te WebKit, Windows'ta WebView2, Linux'ta WebKitGTK). İçindeki sayfada basic.js ve bileşenleri
 vardır; paket onları yanında getirir, internet gerekmez.
 
 ```

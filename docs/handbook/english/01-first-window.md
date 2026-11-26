@@ -8,7 +8,9 @@ pip install ozdenui
 
 It needs Python 3.9 or newer. It brings [pywebview](https://pywebview.flowrl.com/), which opens the window. On a Mac
 with the Python of the system, upgrade pip first (`python3 -m pip install --upgrade pip`): its old pip tries to build a
-part of pywebview from source and fails. On Windows the window needs the WebView2 runtime, which most computers have.
+part of pywebview from source and fails. On Windows the window needs the WebView2 runtime, which most computers have. On Linux it is the GTK web view of the
+system: on Debian or Ubuntu `sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.1`, then
+make the virtual environment with `python3 -m venv --system-site-packages .venv`, so it sees them.
 
 ## A window with a counter
 
@@ -45,7 +47,7 @@ The window is shown when the first drawing of `start()` is ready, so it never op
 
 ## How it works
 
-The window is the web view of the system (WebKit on a Mac, WebView2 on Windows). The page in it holds basic.js and its
+The window is the web view of the system (WebKit on a Mac, WebView2 on Windows, WebKitGTK on Linux). The page in it holds basic.js and its
 components; the package carries them, so no internet is needed.
 
 ```

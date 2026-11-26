@@ -23,7 +23,7 @@ const CONFIG = {
     // *** BRAND:
     familySelf: "python", // this site in the strip of the family (js/sections/family.js)
     brandName: "OzdenUI",
-    logoFile: "assets/ozdenui-python-dark.svg", // the logo of OzdenUI FOR PYTHON (362 x 130), its version for the dark bar
+    logoFile: "assets/ozdenui-python-dark.svg", // the logo of OzdenUI FOR PYTHON (380 x 130), its version for the dark bar
 
     // *** PATHS: (relative to this page)
     rootPath: "./",
@@ -31,7 +31,7 @@ const CONFIG = {
 
     // *** THE PACKAGE:
     packageName: "ozdenui",
-    version: "0.1.4",
+    version: "0.1.5",
     // false until the package is on PyPI: the page says to install from the source (no "pip install" that fails)
     isOnPypi: true,
     pypiURL: "https://pypi.org/project/ozdenui/",
