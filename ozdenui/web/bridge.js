@@ -24,7 +24,8 @@ Commands:
 Values from Python: { __bpCallback: id } becomes a function that tells Python (wholeArgs: [1]: the values at these places
 are JSON data that goes whole, as { __bpJson: text }); { __bpObject: id } the object;
 { __bpNoop: 1 } an empty function; { __bpFormat: { prefix, suffix, thousands, decimals, percent } } a function that gives
-the text of a number at once (the answer of a Python function comes too late for a page that draws).
+the text of a number at once (the answer of a Python function comes too late for a page that draws);
+{ __bpNumber: "NaN" } a number JSON has no word for ("NaN", "Infinity", "-Infinity": the values a JsonView shows).
 
 Started Date: November 2026
 Webpage: https://bug7a.github.io/ozdenui-python/
@@ -190,6 +191,7 @@ window.__bp = (function () {
         if (value.__bpObject) return objectOf(value.__bpObject);
         if (value.__bpNoop) return function () {};
         if (value.__bpFormat) return makeNumberFormat(value.__bpFormat);
+        if (value.__bpNumber) return Number(value.__bpNumber); // NaN, Infinity: JSON has no word for them
         const revived = {};
         Object.keys(value).forEach(function (key) {
             revived[key] = revive(value[key], ownerId);

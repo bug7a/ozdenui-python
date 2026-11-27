@@ -3068,3 +3068,8 @@ def test_a_smart_table_with_fill_fills_the_height_of_a_vgroup(app):
     row_props = created(app, in_row)["props"]
     assert (column_props["style"]["height"], column_props["fitLineCount"]) == ("100%", 1)
     assert (row_props["style"]["height"], row_props["fitLineCount"]) == ("auto", 0)
+
+
+def test_a_json_view_shows_the_nan_that_a_table_shows_empty(app):
+    view = ozdenui.JsonView(value={"a": float("nan"), "b": [float("inf"), 1.5]})
+    assert created(app, view)["props"]["value"] == {"a": {"__bpNumber": "NaN"}, "b": [{"__bpNumber": "Infinity"}, 1.5]}

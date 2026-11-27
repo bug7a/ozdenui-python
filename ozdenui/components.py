@@ -23,6 +23,7 @@ import mimetypes
 import dataclasses
 import decimal
 import json
+import math
 import os
 import re
 import sys
@@ -2908,6 +2909,9 @@ _LARGEST_EXACT_NUMBER = 2 ** 53  # WHY: a bigger whole number changes on the pag
 def _json_for_page(value, parents=()):
     """A Python value as a JsonView shows it. WHY not an error as in to_page(): a value to look at must not stop the program:
     a date, a set or an object of yours is shown as its text."""
+    if isinstance(value, float) and not math.isfinite(value):
+        # WHY a word: to_page() gives the page no NaN (a table shows it empty), but a view of JSON shows what is there
+        return {"__bpNumber": "NaN" if math.isnan(value) else ("Infinity" if value > 0 else "-Infinity")}
     if value is None or isinstance(value, (str, bool, float)):
         return value
     if isinstance(value, int):

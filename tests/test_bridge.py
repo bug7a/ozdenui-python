@@ -153,3 +153,13 @@ def test_the_language_command_sets_the_language_of_the_page():
         return [document.documentElement.lang, answer.errors.length];
     """)
     assert language == ["tr", 0]
+
+
+def test_a_number_json_has_no_word_for_comes_back_as_a_number():
+    # WHY: a JsonView shows the NaN of a value; JSON (the way to a notebook) has no NaN
+    numbers = run_page("""
+        __bp.apply([""" + create("o1", {"value": {"a": {"__bpNumber": "NaN"}, "b": {"__bpNumber": "-Infinity"}}}) + """]);
+        const given = __bp.objectOf("o1").given.value;
+        return [Number.isNaN(given.a), given.b === -Infinity];
+    """)
+    assert numbers == [True, True]
