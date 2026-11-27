@@ -14,6 +14,7 @@ import base64
 import inspect
 import io
 import itertools
+import math
 import mimetypes
 import os
 import re
@@ -80,6 +81,10 @@ def to_page(value, app, owner_id, where, callback_ids=None):
     """A Python value as it goes to the page (JSON): a function becomes a callback, an object its reference.
     callback_ids: a list that gets the id of every callback made here (its object forgets them when they are replaced).
     Raises TypeError at the line of the user for a value the page can not take."""
+    if isinstance(value, float) and not math.isfinite(value):
+        # WHY: the empty values of pandas are NaN: JSON has no NaN, so a table showed "NaN" (a notebook even printed
+        #      a warning of JSON under the app). An empty value is shown empty.
+        return None
     if isinstance(value, _PAGE_TYPES):
         return value
     if callable(value) and not hasattr(value, "_id"):

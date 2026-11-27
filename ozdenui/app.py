@@ -24,6 +24,7 @@ import json
 import os
 import pathlib
 import queue
+import re
 import sys
 import threading
 import time
@@ -44,6 +45,7 @@ _SAME_DROP_SECONDS = 0.5
 _MIN_REPEAT_SECONDS = 0.001  # WHY: every(0) waited 0 s, so its thread spun a whole CPU core
 _FILE_DIALOGS = {"open": webview.FileDialog.OPEN, "save": webview.FileDialog.SAVE, "folder": webview.FileDialog.FOLDER}
 _THEMES = ("light", "dark", "auto")
+_PAGE_LANGUAGE = "en"  # the lang of index.html
 _STYLES = ("", "minimal")
 _DARK_PAGE_COLOR = "#1C1C1B"
 _EARLY_PAGE_COLOR_PREFIX = "ozdenui-page-color:"  # window.name of a page loaded again for another theme (bridge.js)
@@ -64,6 +66,14 @@ def _check_accent(style, accent, accent_dark):
         raise ValueError("App(accent_dark=...): it goes with accent=...")
     if accent and style != "minimal":
         raise ValueError('App(accent=...): the color of the minimal look; give style="minimal" too')
+
+
+_LANGUAGE = re.compile(r"[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*")
+
+
+def _check_language(language):
+    if not isinstance(language, str) or not _LANGUAGE.fullmatch(language):
+        raise ValueError(f'App(language={language!r}): a language tag, Ex: "en", "tr", "de-CH"')
 
 
 def current_app():
@@ -287,10 +297,13 @@ class App:
     the components that have it; the others keep their usual look. app.style.
     accent: a color of the minimal look ("#2A78D6"): an on toggle, a checked box, the selected tab and the main button
     (SmartButton(tone="accent")) take it; the lines and the texts stay as they are. accent_dark: its color in a dark
-    window ("": the same color made lighter until it reads on the dark ground). app.accent, app.accent_dark."""
+    window ("": the same color made lighter until it reads on the dark ground). app.accent, app.accent_dark.
+    language: the language of the page ("en"; "tr", "de"...): the capitals of the texts (a Turkish "i" becomes "İ") and
+    the numbers a component writes itself (the counts of a table) follow it; the values you give stay as they are.
+    app.language."""
 
     def __init__(self, start, title="basic.js", size=(800, 600), components=(), debug=False, theme="light", style="",
-                 accent="", accent_dark=""):
+                 accent="", accent_dark="", language="en"):
         if theme not in _THEMES:
             raise ValueError(f'App(theme={theme!r}): it is "light", "dark" or "auto"')
         if _look and _look["theme"]:
@@ -298,9 +311,11 @@ class App:
         if style not in _STYLES:
             raise ValueError(f'App(style={style!r}): it is "" or "minimal"')
         _check_accent(style, accent, accent_dark)
+        _check_language(language)
         self.style = style
         self.accent = accent
         self.accent_dark = accent_dark
+        self.language = language
         self._wanted_theme = theme
         self.theme = "dark" if theme == "dark" else "light"  # "auto": the page tells it before start() runs
         self._start = start
@@ -527,6 +542,8 @@ class App:
     def _make_page(self):
         from .objects import Page
 
+        if self.language != _PAGE_LANGUAGE:
+            self._send({"op": "language", "value": self.language})  # WHY first: a component reads it when it is made
         self.page = Page(self, *self._page_size)
         if self.theme == "dark":
             self.page.color = _DARK_PAGE_COLOR

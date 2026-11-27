@@ -1189,6 +1189,11 @@ class SmartTable(TypedComponent):
         style = dict(params.get("style") or {})
         style.setdefault("width", params.pop("width", self._default_width(params)))
         height = params.pop("height", None)
+        if height is None and params.get("fill") and not self._is_in_row():
+            # WHY: with fill=True in a VGroup the box got the height that is left, but the table kept the height of
+            #      line_count rows: its rows went out of its box, over the next object. Now it fills the box and its
+            #      rows follow its height (fit_line_count).
+            height = "100%"
         style.setdefault("height", "auto" if height is None else height)
         params["style"] = style
         params["fit_line_count"] = params.get("fit_line_count", int(height is not None))
@@ -1209,10 +1214,14 @@ class SmartTable(TypedComponent):
         a percent; with "100%" the table grew over that room and the next object of the row covered the buttons."""
         if not params.get("fill"):
             return "100%"
+        return "auto" if SmartTable._is_in_row() else "100%"
+
+    @staticmethod
+    def _is_in_row():
+        """The table is made in an HGroup (fill=True takes the width that is left there, not the height)."""
         app = _app.current_app()
         parent = app._objects.get(app._container_id())
-        is_in_row = isinstance(parent, HGroup) and not isinstance(parent, GridGroup)
-        return "auto" if is_in_row else "100%"
+        return isinstance(parent, HGroup) and not isinstance(parent, GridGroup)
 
     def _page_select_handler(self, handler):
         """WHY: the page gives the table of the page and the row; the function gets this object and the row."""

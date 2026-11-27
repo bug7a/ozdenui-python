@@ -144,3 +144,12 @@ def test_the_answer_of_apply_tells_the_errors_the_removed_objects_and_the_last_e
     ]
     assert answer["removed"] == ["o1"]  # and Python forgets its functions
     assert answer["lastEvent"] == 1  # WHY 1: the answer of the failed static (None), so Python does not wait for ever
+
+
+def test_the_language_command_sets_the_language_of_the_page():
+    language = run_page("""
+        globalThis.document = { documentElement: { lang: "en" } };
+        const answer = __bp.apply([{ op: "language", value: "tr" }]);
+        return [document.documentElement.lang, answer.errors.length];
+    """)
+    assert language == ["tr", 0]

@@ -3029,3 +3029,42 @@ def test_pyinstaller_takes_the_page_of_the_window(monkeypatch):
     monkeypatch.setitem(sys.modules, "PyInstaller.utils.hooks", hooks)
     found = runpy.run_path(str(Path(get_hook_dirs()[0]) / "hook-ozdenui.py"))
     assert asked == ["ozdenui"] and found["datas"]
+
+
+# *** THE LANGUAGE OF THE PAGE, EMPTY VALUES, A TABLE THAT FILLS
+
+def test_a_language_goes_to_the_page_before_its_objects():
+    application = App(lambda page: None, language="tr")
+    application._window = FakeWindow()
+    application._app_thread_id = threading.get_ident()
+    app_module._current = application
+    try:
+        application._make_page()
+        assert application.language == "tr"
+        assert application._commands[0] == {"op": "language", "value": "tr"}
+    finally:
+        app_module._current = None
+
+
+def test_english_sends_no_language_and_a_wrong_one_is_an_error(app):
+    app._make_page()
+    assert not [command for command in app._commands if command["op"] == "language"]
+    with pytest.raises(ValueError, match="language"):
+        App(lambda page: None, language="Türkçe")
+
+
+def test_an_empty_value_of_pandas_goes_to_the_page_empty(app):
+    table = ozdenui.SmartTable(columns=[{"key": "a"}], rows=[{"a": float("nan")}, {"a": float("inf")}, {"a": 1.5}])
+    assert created(app, table)["props"]["itemDataList"] == [{"a": None}, {"a": None}, {"a": 1.5}]
+    assert table.rows[0]["a"] != table.rows[0]["a"]  # Python keeps the NaN of the program
+
+
+def test_a_smart_table_with_fill_fills_the_height_of_a_vgroup(app):
+    with VGroup():
+        in_column = ozdenui.SmartTable(fill=True, columns=[{"key": "a"}])
+    with HGroup():
+        in_row = ozdenui.SmartTable(fill=True, columns=[{"key": "a"}])
+    column_props = created(app, in_column)["props"]
+    row_props = created(app, in_row)["props"]
+    assert (column_props["style"]["height"], column_props["fitLineCount"]) == ("100%", 1)
+    assert (row_props["style"]["height"], row_props["fitLineCount"]) == ("auto", 0)

@@ -48,7 +48,8 @@ def add_note():
 App(start, title="Notes", size=(480, 420)).run()   # once, at the end of the program, on the main thread
 ```
 
-- `App(start, title=, size=(w, h), theme="light" | "dark" | "auto", style="" | "minimal", accent="#2A78D6")`.
+- `App(start, title=, size=(w, h), theme="light" | "dark" | "auto", style="" | "minimal", accent="#2A78D6",
+  language="en")`. `language="tr"`: the capitals of Turkish (İ).
   Inside the functions it is `page.app` (`page.app.close()`, `page.app.set_title()`, `page.app.theme`).
 - Objects are made in `start()` or later (an event, a timer), never before `run()`.
 - The app outside `start()`: `app = App(start, title=...)`, then `app.run()` on the last line; the functions use `app`.

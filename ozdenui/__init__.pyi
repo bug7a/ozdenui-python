@@ -55,16 +55,20 @@ class App:
     accent: a color of the minimal look ("#2A78D6"): an on toggle, a checked box, the selected tab and the main button
     (SmartButton(tone="accent")) take it; the lines and the texts stay as they are. accent_dark: its color in a dark
     window ("": the same color made lighter until it reads on the dark ground). app.accent, app.accent_dark.
+    language: the language of the page ("en"; "tr", "de"...): the capitals of the texts (a Turkish "i" becomes "İ") and
+    the numbers a component writes itself (the counts of a table) follow it; the values you give stay as they are.
+    app.language.
     """
     style: Any
     accent: Any
     accent_dark: Any
+    language: Any
     theme: Any
     page: Any
     basic_version: Any
     timings: Any
     started_at: Any
-    def __init__(self, start: Callable[[_Page], Any], title=..., size=..., components=..., debug=..., theme=..., style=..., accent=..., accent_dark=...) -> None: ...
+    def __init__(self, start: Callable[[_Page], Any], title=..., size=..., components=..., debug=..., theme=..., style=..., accent=..., accent_dark=..., language=...) -> None: ...
     def run(self) -> Any: ...
     def close(self) -> Any: ...
     def set_title(self, title) -> Any: ...

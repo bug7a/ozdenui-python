@@ -19,6 +19,7 @@ Commands:
   { op: "placeBubble", id, target: id, side: "top" }  a popover is placed again when its objects are in it
   { op: "listen", id, event: "click" }
   { op: "remove", id }
+  { op: "language", value: "tr" }   the language of the page (<html lang>), before the components are made
 
 Values from Python: { __bpCallback: id } becomes a function that tells Python (wholeArgs: [1]: the values at these places
 are JSON data that goes whole, as { __bpJson: text }); { __bpObject: id } the object;
@@ -331,7 +332,13 @@ window.__bp = (function () {
         return sweepRemoved();
     };
 
-    const HANDLERS = { create: create, set: set, call: call, static: callStatic, part: part, placeBubble: placeBubble, listen: listen, remove: remove };
+    // WHY the language of the page: the capitals of a text (text-transform) and the numbers of a component follow it:
+    //      a Turkish title of a table was "FIYAT", not "FİYAT".
+    const setLanguage = function (command) {
+        document.documentElement.lang = command.value;
+    };
+
+    const HANDLERS = { create: create, set: set, call: call, static: callStatic, part: part, placeBubble: placeBubble, listen: listen, remove: remove, language: setLanguage };
 
     // *** COMPONENTS THAT ARE NOT LOADED BY index.html (window.__bpComponents: name -> { file, needs })
 

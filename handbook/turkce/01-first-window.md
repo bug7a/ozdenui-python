@@ -71,6 +71,7 @@ App(start,
     size=(800, 600),        # px olarak genişlik ve yükseklik
     theme="light",          # "light", "dark" ya da "auto" (sistem ne istiyorsa): 7. bölüm
     style="",               # "" ya da "minimal": 7. bölüm
+    language="en",          # sayfanın dili: "tr" Türkçenin büyük harflerini (İ) doğru yazar
     components=(),          # yüklenecek başka bileşenler: 5. bölüm
     debug=False)            # True: web görünümünün geliştirici araçları (sağ tık > Inspect)
 ```

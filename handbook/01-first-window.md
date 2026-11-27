@@ -69,6 +69,7 @@ App(start,
     size=(800, 600),        # width and height in px
     theme="light",          # "light", "dark" or "auto" (what the system asks): chapter 7
     style="",               # "" or "minimal": chapter 7
+    language="en",          # the language of the page: "tr" writes the capitals of Turkish (İ)
     components=(),          # more components to load: chapter 5
     debug=False)            # True: the developer tools of the web view (right click > Inspect)
 ```

@@ -349,6 +349,7 @@ a `Label`, a `Box` and an `Input` follow. A `tone` of a `SmartButton` becomes it
 App(start, theme="dark").run()       # "light" (default), "dark", or "auto": what the system asks
 page.app.theme                       # "light" or "dark": for the colors of your own objects
 page.app.set_theme("dark")           # the window again in another theme: its page is made again, start() runs again
+App(start, language="tr").run()      # the language of the page: the capitals of Turkish (İ)
 ```
 
 A look you give stays: `CheckBox(style_name="modern")`, `Label(text_color="red")`. A component without a dark look keeps
