@@ -24,6 +24,7 @@ BLOCKS:
 USAGE:
 const doc = Markdown.parse(text);   // { blocks, title }
 Markdown.resolveFile = function (fileName) { return chapterId or null; }; // "02-box.md" -> "#/box"
+Markdown.chapterId = "box";         // the chapter being read: a link to "#a-heading" goes to a heading of it
 
 Started Date: November 2026
 Webpage: https://bug7a.github.io/ozdenui-python/
@@ -40,6 +41,9 @@ const Markdown = {};
 
 // Site tarafından verilir: "02-box.md" -> "box" (yoksa null)
 Markdown.resolveFile = function (fileName) { return null; };
+
+// The id of the chapter being parsed (js/site.js sets it before Markdown.parse)
+Markdown.chapterId = "";
 
 // *** BLOCKS:
 
@@ -88,12 +92,15 @@ Markdown.parseBlocks = function (lines, usedIds) {
         }
 
         // ``` kod bloğu
+        // WHY the indent of the fence is taken off its lines: a block inside a list item ("   ```js") has the indent of
+        //     the item on every line; it is not a part of the code.
         let match = RE.fence.exec(line);
         if (match) {
             const code = [];
+            const fenceIndent = new RegExp("^ {0," + /^ */.exec(line)[0].length + "}");
             i++;
             while (i < lines.length && !RE.fenceEnd.test(lines[i])) {
-                code.push(lines[i]);
+                code.push(lines[i].replace(fenceIndent, ""));
                 i++;
             }
             i++; // Kapanış satırı
@@ -186,7 +193,7 @@ Markdown.listHtml = function (lines) {
     lines.forEach(function (line) {
         const match = Markdown.RE.listItem.exec(line);
         if (match) {
-            items.push({ indent: match[1].replace(/\t/g, "    ").length, ordered: /\d/.test(match[2]), text: match[3] });
+            items.push({ indent: match[1].replace(/\t/g, "    ").length, ordered: /\d/.test(match[2]), number: parseInt(match[2], 10), text: match[3] });
         } else if (items.length) {
             items[items.length - 1].text += " " + line.trim();
         }
@@ -194,9 +201,12 @@ Markdown.listHtml = function (lines) {
 
     let position = 0;
 
+    // WHY start: a code block between "3." and "4." ends the list; the next one goes on from 4, not from 1.
     const render = function (indent) {
-        const tag = items[position].ordered ? "ol" : "ul";
-        let html = "<" + tag + ">";
+        const first = items[position];
+        const tag = first.ordered ? "ol" : "ul";
+        const start = (first.ordered && first.number > 1) ? ' start="' + first.number + '"' : "";
+        let html = "<" + tag + start + ">";
         while (position < items.length && items[position].indent === indent) {
             html += "<li>" + Markdown.inline(items[position].text);
             position++;
@@ -277,19 +287,47 @@ Markdown.inline = function (text) {
 };
 
 // <a>: sitenin kendi adresleri aynı sekmede, diğerleri yeni sekmede açılır.
+// WHY the #heading part: a chapter is written for GitHub too, where "05-x.md#a-heading" and "#a-heading" go to a
+//     heading. Here a chapter is "#/id" and its heading "#/id/heading": a bare "#a-heading" would open the first
+//     chapter. The slug of the page is used (GitHub keeps ç, ş... and double dashes: DocView finds the heading without
+//     the dashes too).
 Markdown.link = function (url, labelHtml, labelIsHtml = 0) {
 
     let href = url;
-    const fileMatch = /^(?:\.\/)?((?:\d\d-[\w-]+|README)\.md)(#.*)?$/.exec(url); // WHY README: the introduction of the handbook
+    const fileMatch = /^(?:\.\/)?((?:\d\d-[\w-]+|README)\.md)(?:#(.*))?$/.exec(url); // WHY README: the introduction of the handbook
+    const headingMatch = /^#([^/].*)$/.exec(url);
+
     if (fileMatch) {
         const chapterId = Markdown.resolveFile(fileMatch[1]);
-        if (chapterId) href = "#/" + chapterId;
+        if (chapterId) href = Markdown.chapterHash(chapterId, fileMatch[2]);
+    } else if (headingMatch && Markdown.chapterId) {
+        href = Markdown.chapterHash(Markdown.chapterId, headingMatch[1]);
     }
 
     const label = labelIsHtml ? labelHtml : Markdown.escape(labelHtml);
     const external = /^https?:/.test(href);
 
     return '<a href="' + Markdown.escape(href) + '"' + (external ? ' target="_blank" rel="noopener"' : "") + ">" + label + "</a>";
+
+};
+
+// "#/objects", or "#/objects/a-heading" with the part after # of a link
+Markdown.chapterHash = function (chapterId, heading = "") {
+
+    let hash = "#/" + chapterId;
+    if (!heading) return hash;
+
+    let decoded = heading;
+    try {
+        decoded = decodeURIComponent(heading);
+    } catch (error) {
+        decoded = heading;
+    }
+
+    const headingId = Markdown.slug(decoded);
+    if (headingId) hash += "/" + headingId;
+
+    return hash;
 
 };
 

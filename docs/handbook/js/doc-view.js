@@ -356,10 +356,22 @@ DocView.onScroll = function () {
 
 // *** SECTIONS:
 
+// The heading of an id. WHY also without the dashes: a link written for GitHub ("#a--b" for "A / B") has more
+//     dashes than the id of the page ("a-b").
+DocView.findHeading = function (id) {
+
+    const exact = DocView.headings.find(function (item) { return item.id === id; });
+    if (exact) return exact;
+
+    const bare = String(id).replace(/-/g, "");
+    return DocView.headings.find(function (item) { return item.id.replace(/-/g, "") === bare; }) || null;
+
+};
+
 // Başlığa kaydırır ve kısa bir süre vurgular.
 DocView.scrollToSection = function (id, smooth = 1) {
 
-    const heading = DocView.headings.find(function (item) { return item.id === id; });
+    const heading = DocView.findHeading(id);
     if (!heading) return;
 
     const boxElem = DocView.box.elem;

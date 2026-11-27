@@ -262,6 +262,8 @@ SITE.injectCss = function () {
     if (document.getElementById("hb-site-css")) return;
 
     const css = ""
+        // WHY overflow-wrap: a long address or path is one word: without it, it is cut at the edge of a phone
+        + ".hb-text { overflow-wrap: break-word; }"
         + ".hb-text strong, .hb-text b { font-family: opensans-bold; font-weight: normal; color: " + SITE.INK + "; }"
         + ".hb-text em { font-style: italic; }"
         + ".hb-text code { font-family: " + SITE.MONO + "; font-size: 0.86em; background: rgba(0, 0, 0, 0.055);"

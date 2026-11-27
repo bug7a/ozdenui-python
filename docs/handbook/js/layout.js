@@ -200,7 +200,7 @@ Layout.createSearch = function () {
         onSelect: function (self, item) {
             Layout.inpSearch.blur();
             Layout.closeDrawer();
-            location.hash = item.hash;
+            Layout.openHash(item.hash);
         },
     });
     Layout.results.attachTo(input);
@@ -221,6 +221,17 @@ Layout.createSearch = function () {
         Layout.searchBox.elem.style.boxShadow = "none";
         Layout.lblSlash.visible = SITE.L.mobile ? 0 : 1;
     });
+
+};
+
+// Opens "#/chapter" or "#/chapter/heading" of a search result.
+// WHY not only location.hash: the result of the address already open changed nothing (no hashchange), so a heading
+//     the reader had scrolled away from was not shown again.
+Layout.openHash = function (hash) {
+
+    const parts = hash.replace(/^#\//, "").split("/");
+    if (parts[1]) SiteApp.openSection(parts[0], parts[1]);
+    else SiteApp.openChapter(parts[0]);
 
 };
 
